@@ -1,0 +1,68 @@
+version: '2.1'
+services:
+  # Application
+  web:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: invenio run -h 0.0.0.0 -p 5000
+    environment:
+      - "INVENIO_SESSION_COOKIE_SECURE=False"
+    ports:
+      - "5000:5000"
+    links:
+      - cache
+      - es
+      - mq
+      - db
+    volumes_from:
+      - static
+  worker:
+    extends:
+      file: docker-services.yml
+      service: app
+    restart: "always"
+    command: "celery worker -A invenio_app.celery --loglevel=INFO"
+    links:
+      - cache
+      - es
+      - mq
+      - db
+    volumes_from:
+      - static
+  static:
+    extends:
+      file: docker-services.yml
+      service: app
+    restart: "no"
+    command: tail -f /var/log/faillog
+    user: {{cookiecutter.package_name}}
+    volumes:
+      - "/usr/local/var/instance/static"
+      - "/usr/local/lib/python3.5/site-packages"
+      - "/usr/local/var/data"
+      - ".:/code/{{cookiecutter.project_shortname}}"
+  # Monitoring
+  flower:
+    extends:
+      file: docker-services.yml
+      service: flower
+    links:
+      - mq
+  # Base services
+  cache:
+    extends:
+      file: docker-services.yml
+      service: cache
+  db:
+    extends:
+      file: docker-services.yml
+      service: db
+  mq:
+    extends:
+      file: docker-services.yml
+      service: mq
+  es:
+    extends:
+      file: docker-services.yml
+      service: es

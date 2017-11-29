@@ -1,0 +1,13 @@
+{
+    "project_name": "My site",
+    "project_shortname": "{{ cookiecutter.project_name | lower | replace(' ', '-') }}",
+    "package_name": "{{ cookiecutter.project_shortname | replace('-', '_') }}",
+    "github_repo": "inveniosoftware/{{ cookiecutter.project_shortname  }}",
+    "description": "Invenio digital library framework.",
+    "author_name": "CERN",
+    "author_email": "info@inveniosoftware.org",
+    "year": "2017",
+    "copyright_holder": "{{ cookiecutter.author_name }}",
+    "superproject": "{{cookiecutter.project_name}}",
+    "transifex_project": "{{ cookiecutter.project_shortname }}",
+}
