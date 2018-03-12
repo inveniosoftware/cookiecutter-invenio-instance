@@ -1,12 +1,13 @@
-version: '2.1'
+version: '2.3'
 services:
-  # Frontend
+  # Load balancer
   lb:
     extends:
       file: docker-services.yml
       service: lb
     links:
       - frontend
+  # Frontend
   frontend:
     extends:
       file: docker-services.yml
@@ -14,15 +15,33 @@ services:
     volumes:
       - static_data:/opt/{{cookiecutter.project_shortname}}/var/instance/static
     links:
-      - web
-  # Application
-  web:
+      - web-ui
+      - web-api
+  # UI Application
+  web-ui:
     extends:
       file: docker-services.yml
       service: app
-    command: uwsgi /opt/{{cookiecutter.project_shortname}}/var/instance/uwsgi.ini
+    command: uwsgi /opt/{{cookiecutter.project_shortname}}/var/instance/uwsgi_ui.ini
+    image: {{cookiecutter.project_shortname}}-web-ui
     ports:
-      - "5000:5000"
+      - "5000"
+    volumes:
+      - static_data:/opt/{{cookiecutter.project_shortname}}/var/instance/static
+    links:
+      - cache
+      - es
+      - mq
+      - db
+  # API Rest Application
+  web-api:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: uwsgi /opt/{{cookiecutter.project_shortname}}/var/instance/uwsgi_rest.ini
+    image: {{cookiecutter.project_shortname}}-web-api
+    ports:
+      - "5001"
     volumes:
       - static_data:/opt/{{cookiecutter.project_shortname}}/var/instance/static
     links:
@@ -37,6 +56,7 @@ services:
       service: app
     restart: "always"
     command: "celery worker -A invenio_app.celery --loglevel=INFO"
+    image: {{cookiecutter.project_shortname}}-worker
     links:
       - cache
       - es
