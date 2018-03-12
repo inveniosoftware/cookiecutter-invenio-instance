@@ -7,10 +7,14 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
+DATABASE = "{{ cookiecutter.database }}"
+ELASTICSEARCH = "{{ cookiecutter.elasticsearch }}"
+INVENIO_VERSION = "3.0.0rc1"
+
 tests_require = [
     'check-manifest>=0.35',
     'coverage>=4.4.1',
-    'isort>=4.2.15',``
+    'isort>=4.3',
     'mock>=2.0.0',
     'pydocstyle>=2.0.0',
     'pytest-cache>=1.0',
@@ -19,53 +23,30 @@ tests_require = [
     'pytest-mock>=1.6.0',
     'pytest-pep8>=1.0.6',
     'pytest-random-order>=0.5.4',
-    'pytest>=3.3.0',
-    'six>=1.10.0',
+    'pytest>=3.3.1',
 ]
-
-db_version = '~1.0.0'
-search_version = '~1.0.0'
 
 extras_require = {
     'docs': [
         'Sphinx>=1.5.1',
     ],
     'tests': tests_require,
-    # Database version
-    'postgresql': [
-        'invenio-db[postgresql,versioning]{}'.format(db_version),
-    ],
-    'mysql': [
-        'invenio-db[mysql,versioning]{}'.format(db_version),
-    ],
-    'sqlite': [
-        'invenio-db[versioning]{}'.format(db_version),
-    ],
-    # Elasticsearch version
-    'elasticsearch2': [
-        'invenio-search[elasticsearch2]{}'.format(search_version),
-    ],
-    'elasticsearch5': [
-        'invenio-search[elasticsearch5]{}'.format(search_version),
-    ],
 }
 
 extras_require['all'] = []
-for name, requirements in extras_require.items():
-    if name in ('sqlite', 'mysql', 'postgresql') \
-            or name.startswith('elasticsearch'):
-        continue
-    extras_require['all'].extend(requirements)
+for reqs in extras_require.values():
+    extras_require['all'].extend(reqs)
 
 setup_requires = [
     'Babel>=2.4.0',
-    'pytest-runner>=3.0.0',
+    'pytest-runner>=3.0.0,<5',
 ]
 
 install_requires = [
     'Flask-BabelEx>=0.9.2',
     'Flask-Debugtoolbar>=0.10.1',
-    # 'invenio[base,auth,metadata]~=3.0.0',
+    'invenio[{db},{es},base,auth,metadata]~={version}'
+        .format(db=DATABASE, es=ELASTICSEARCH, version=INVENIO_VERSION)
 ]
 
 packages = find_packages()
@@ -82,8 +63,8 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme,
-    keywords='{{ cookiecutter.project_shortname }} invenio TODO',
-    license='MIT',
+    keywords='{{ cookiecutter.project_shortname }} Invenio',
+    #TODO license='',
     author='{{ cookiecutter.author_name }}',
     author_email='{{ cookiecutter.author_email }}',
     url='https://github.com/{{ cookiecutter.github_repo }}',
@@ -112,10 +93,10 @@ setup(
     classifiers=[
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
+        #TODO 'License :: ',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-        'Topic :: Software Development :: Libraries :: Python Modules',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',

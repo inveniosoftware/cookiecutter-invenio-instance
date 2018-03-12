@@ -1,3 +1,0 @@
-{% include 'misc/header.py' %}
-
-# TODO: Add here the pinned requirements of your project

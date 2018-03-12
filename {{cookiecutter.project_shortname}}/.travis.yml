@@ -9,7 +9,9 @@ notifications:
     on_success: never # default: always
     on_failure: always # default: always
 
-sudo: false
+# Selenium webdriver for Chrome fails if not on sudo
+# - see https://github.com/travis-ci/travis-ci/issues/8836
+sudo: true
 
 language: python
 
@@ -26,8 +28,8 @@ services:
 
 env:
   - REQUIREMENTS=lowest E2E="no" ES_VERSION=6.0.0
-  - REQUIREMENTS=release DEPLOY=true E2E="yes" ES_VERSION=6.0.0
-  - REQUIREMENTS=devel E2E="yes" ES_VERSION=6.0.0
+  - REQUIREMENTS=release DEPLOY=true E2E="yes" E2E_OUTPUT="base64" ES_VERSION=6.0.0
+  - REQUIREMENTS=devel E2E="yes" E2E_OUTPUT="base64" ES_VERSION=6.0.0
 
 python:
   - "2.7"
@@ -36,12 +38,11 @@ python:
 before_install:
   - mkdir /tmp/elasticsearch
   - wget -O - https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz | tar xz --directory=/tmp/elasticsearch --strip-components=1
-  # TODO: fix me
   - "/tmp/elasticsearch/bin/plugin install -b mapper-attachments"
   - "/tmp/elasticsearch/bin/elasticsearch &"
   # Gecko webdriver: https://github.com/mozilla/geckodriver/releases/
   - "PATH=$PATH:$HOME/webdrivers"
-  - "if [ ${E2E} == 'yes' ] && [ ! -f $HOME/webdrivers/chromedriver ]; then wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip -P $HOME/webdrivers; unzip -d $HOME/webdrivers $HOME/webdrivers/chromedriver_linux64.zip; fi"
+  - "if [ ${E2E} == 'yes' ] && [ ! -f $HOME/webdrivers/chromedriver ]; then wget https://chromedriver.storage.googleapis.com/2.36/chromedriver_linux64.zip -P $HOME/webdrivers; unzip -d $HOME/webdrivers $HOME/webdrivers/chromedriver_linux64.zip; fi"
   - "nvm install 6; nvm use 6"
   - "travis_retry pip install --upgrade pip setuptools py"
   - "travis_retry pip install twine wheel coveralls requirements-builder"
@@ -53,7 +54,6 @@ before_install:
 install:
   - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
   - "travis_retry pip install -e .[all,postgresql,elasticsearch2]"
-  - "./scripts/setup-assets.sh"
 
 before_script:
   # https://docs.travis-ci.com/user/gui-and-headless-browsers/

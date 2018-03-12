@@ -21,3 +21,4 @@
 
 Further documentation is available on
 https://{{ cookiecutter.project_shortname }}.readthedocs.io/
+

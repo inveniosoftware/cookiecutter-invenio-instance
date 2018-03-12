@@ -5,6 +5,8 @@ from __future__ import absolute_import, print_function
 
 from datetime import timedelta
 
+from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
+
 def _(x):
     """Identity function used to trigger string extraction."""
     return x
@@ -91,6 +93,9 @@ MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
 # ====
 #: Enable Cross-Origin Resource Sharing support.
 REST_ENABLE_CORS = True
+
+APP_DEFAULT_SECURE_HEADERS['force_https'] = False
+APP_DEFAULT_SECURE_HEADERS['session_cookie_secure'] = False
 
 # Debug
 # =====
