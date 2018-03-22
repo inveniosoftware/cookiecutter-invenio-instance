@@ -13,6 +13,11 @@ def _(x):
     return x
 
 
+# Rate limiting
+# =============
+
+RATELIMIT_STORAGE_URL = 'redis://localhost:6379/3'
+
 # I18N
 # ====
 #: Default language
@@ -98,6 +103,11 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{{cookiecutter.project_shortname}}:{{
 SQLALCHEMY_DATABASE_URI = 'sqlite:///{{cookiecutter.project_shortname}}.db'
 {% endif %}
 
+# JSONSchemas
+# ===========
+
+JSONSCHEMAS_HOST = '{{cookiecutter.project_shortname}}.com'
+
 # Flask configuration
 # ===================
 # See details on
@@ -113,8 +123,8 @@ MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
 #: Enable Cross-Origin Resource Sharing support.
 REST_ENABLE_CORS = True
 
-APP_DEFAULT_SECURE_HEADERS['force_https'] = False
-APP_DEFAULT_SECURE_HEADERS['session_cookie_secure'] = False
+APP_DEFAULT_SECURE_HEADERS['force_https'] = True
+APP_DEFAULT_SECURE_HEADERS['session_cookie_secure'] = True
 
 # Debug
 # =====
