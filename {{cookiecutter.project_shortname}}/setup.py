@@ -45,8 +45,8 @@ setup_requires = [
 install_requires = [
     'Flask-BabelEx>=0.9.2',
     'Flask-Debugtoolbar>=0.10.1',
-    'invenio[{db},{es},base,auth,metadata]~={version}'
-        .format(db=DATABASE, es=ELASTICSEARCH, version=INVENIO_VERSION)
+    'invenio[{db},{es},base,auth,metadata]~={version}'.format(
+        db=DATABASE, es=ELASTICSEARCH, version=INVENIO_VERSION)
 ]
 
 packages = find_packages()
@@ -63,7 +63,7 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme,
-    keywords='{{ cookiecutter.project_shortname }} Invenio',
+    keywords='{{ cookiecutter.project_shortname }} Invenio TODO',
     #TODO license='',
     author='{{ cookiecutter.author_name }}',
     author_email='{{ cookiecutter.author_email }}',
