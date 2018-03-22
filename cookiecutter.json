@@ -9,6 +9,6 @@
     "year": "2018",
     "copyright_holder": "{{ cookiecutter.author_name }}",
     "transifex_project": "{{ cookiecutter.project_shortname }}",
-    "database": ["mysql", "postgresql"],
-    "elasticsearch": ["elasticsearch5", "elasticsearch6"]
+    "database": ["postgresql", "mysql"],
+    "elasticsearch": ["elasticsearch6", "elasticsearch5"]
 }

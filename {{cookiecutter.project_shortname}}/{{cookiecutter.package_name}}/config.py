@@ -68,9 +68,14 @@ COLLECT_STORAGE = 'flask_collect.storage.file'
 SECURITY_EMAIL_SENDER = SUPPORT_EMAIL
 SECURITY_EMAIL_SUBJECT_REGISTER = _(
     "Welcome to {{cookiecutter.project_name}}!")
+ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 
 # Celery configuration
 # ====================
+BROKER_URL = 'amqp://guest:guest@mq:5672/'
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
+
 #: Scheduled tasks configuration (aka cronjobs).
 CELERY_BEAT_SCHEDULE = {
     'indexer': {
@@ -83,10 +88,22 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
+# Database
+# ========
+{% if cookiecutter.database == 'postgresql'%}
+SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@localhost/{{cookiecutter.project_shortname}}'
+{% elif cookiecuteter.database == 'mysql'%}
+SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@localhost/{{cookiecutter.project_shortname}}'
+{% else %}
+SQLALCHEMY_DATABASE_URI = 'sqlite:///{{cookiecutter.project_shortname}}.db'
+{% endif %}
+
 # Flask configuration
 # ===================
 # See details on
 # http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values
+
+SECRET_KEY = 'CHANGE_ME'
 
 #: Max upload size for form data via application/mulitpart-formdata
 MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
