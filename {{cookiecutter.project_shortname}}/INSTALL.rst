@@ -62,5 +62,5 @@ Development setup
 -----------------
 
 The recommended way of developing on Invenio is to install and run the web app locally in your machine, while keeping
-the other services (provided by `docker-compose.base.yml`) on Docker containers.
+the other services (provided by `docker-compose.yml`) on Docker containers.
 See the `Developer Guide <https://http://invenio.readthedocs.io/en/latest/developersguide/>` documentation.
