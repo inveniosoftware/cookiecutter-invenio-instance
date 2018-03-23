@@ -28,7 +28,7 @@ RUN if [ "$ENVIRONMENT" = "PROD" ]; then pip install -r requirements-pinned.txt;
 
 # Install/create static files
 RUN mkdir -p ${INVENIO_INSTANCE_PATH}
-RUN ./scripts/setup-npm.sh && \
+RUN npm update && npm install --silent -g node-sass@3.8.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0 && \
     {{ cookiecutter.project_shortname }} npm && \
     cd ${INVENIO_INSTANCE_PATH}/static && \
     npm install && \
