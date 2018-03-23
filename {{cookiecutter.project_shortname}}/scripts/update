@@ -5,3 +5,4 @@ set -e
 ./bootstrap
 
 invenio alembic upgrade
+invenio index init --force
