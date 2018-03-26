@@ -29,12 +29,7 @@ RUN if [ "$ENVIRONMENT" = "PROD" ]; then pip install -r requirements-pinned.txt;
 
 # Install/create static files
 RUN mkdir -p ${INVENIO_INSTANCE_PATH}
-RUN ./scripts/setup-npm.sh && \
-    {{ cookiecutter.project_shortname }} npm && \
-    cd ${INVENIO_INSTANCE_PATH}/static && \
-    npm install && \
-    {{ cookiecutter.project_shortname }} collect -v && \
-    {{ cookiecutter.project_shortname }} assets build
+RUN ./scripts/boostrap
 
 # copy uwsgi config files
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}

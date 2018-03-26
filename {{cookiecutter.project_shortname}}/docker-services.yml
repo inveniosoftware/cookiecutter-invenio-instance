@@ -17,7 +17,13 @@ services:
       - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
       - "INVENIO_SECRET_KEY=CHANGE_ME"
       - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@db/{{cookiecutter.project_shortname}}"
+      {% if cookiecutter.database == 'postgresql'%}
+      - "INVENIO_SQLALCHEMY_DATABASE_URI" = 'postgresql+psycopg2://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@db/{{cookiecutter.project_shortname}}'
+      {% elif cookiecutter.database == 'mysql'%}
+      - "INVENIO_SQLALCHEMY_DATABASE_URI" = 'mysql+pymysql://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@db/{{cookiecutter.project_shortname}}'
+      {% endif %}
       - "INVENIO_WSGI_PROXIES=2"
+      - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
   lb:
     build: ./docker/haproxy/
     image: {{cookiecutter.project_shortname}}-lb
@@ -40,6 +46,7 @@ services:
     ports:
       - "6379:6379"
   db:
+    {% if cookiecutter.database == 'postgresql'%}
     image: postgres:9.6
     restart: "always"
     environment:
@@ -47,6 +54,14 @@ services:
       - "POSTGRES_PASSWORD={{cookiecutter.project_shortname}}"
     ports:
       - "5432:5432"
+    {% elif cookiecutter.database == 'mysql'%}
+    image: mysql
+    restart: "always"
+    environment:
+      -
+    ports:
+
+    {% endif %}
   mq:
     image: rabbitmq:3-management
     restart: "always"
@@ -54,7 +69,11 @@ services:
       - "15672:15672"
       - "5672:5672"
   es:
+    {% if cookiecutter.elasticsearch == 'elasticsearch6'%}
     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.2
+    {% elif cookiecutter.elasticsearch == 'elasticsearch5' %}
+    image: elasticsearch:5.6
+    {% endif %}
     restart: "always"
     environment:
       - bootstrap.memory_lock=true

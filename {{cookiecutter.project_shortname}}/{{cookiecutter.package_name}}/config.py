@@ -77,7 +77,7 @@ ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 
 # Celery configuration
 # ====================
-BROKER_URL = 'amqp://guest:guest@mq:5672/'
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/2'
 
@@ -97,7 +97,7 @@ CELERY_BEAT_SCHEDULE = {
 # ========
 {% if cookiecutter.database == 'postgresql'%}
 SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@localhost/{{cookiecutter.project_shortname}}'
-{% elif cookiecuteter.database == 'mysql'%}
+{% elif cookiecutter.database == 'mysql'%}
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@localhost/{{cookiecutter.project_shortname}}'
 {% else %}
 SQLALCHEMY_DATABASE_URI = 'sqlite:///{{cookiecutter.project_shortname}}.db'
