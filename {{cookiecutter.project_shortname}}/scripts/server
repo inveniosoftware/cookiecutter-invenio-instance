@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+{% include 'misc/header.py' %}
 set -e
 
 export FLASK_DEBUG=1
