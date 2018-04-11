@@ -1,3 +1,4 @@
+{% include 'misc/header.py' %}
 version: '2.3'
 services:
   app:

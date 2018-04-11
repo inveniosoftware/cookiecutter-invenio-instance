@@ -1,1 +1,1 @@
-{% include 'misc/header.py' %}
+{% include 'misc/header.py' -%}
