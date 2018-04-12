@@ -97,7 +97,7 @@ CELERY_BEAT_SCHEDULE = {
 # ========
 {% if cookiecutter.database == 'postgresql'%}
 SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@localhost/{{cookiecutter.project_shortname}}'
-{% elif cookiecuteter.database == 'mysql'%}
+{% elif cookiecutter.database == 'mysql'%}
 SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@localhost/{{cookiecutter.project_shortname}}'
 {% else %}
 SQLALCHEMY_DATABASE_URI = 'sqlite:///{{cookiecutter.project_shortname}}.db'
