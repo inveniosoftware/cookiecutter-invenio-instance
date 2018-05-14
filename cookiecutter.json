@@ -10,5 +10,5 @@
     "copyright_holder": "{{ cookiecutter.author_name }}",
     "transifex_project": "{{ cookiecutter.project_shortname }}",
     "database": ["postgresql", "mysql"],
-    "elasticsearch": ["elasticsearch6", "elasticsearch5"]
+    "elasticsearch": ["5", "6"]
 }

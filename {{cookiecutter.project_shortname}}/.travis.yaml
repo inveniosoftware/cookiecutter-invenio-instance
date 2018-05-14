@@ -27,9 +27,16 @@ services:
   - rabbitmq
 
 env:
-  - REQUIREMENTS=lowest E2E="no" ES_VERSION=6.0.0
-  - REQUIREMENTS=release DEPLOY=true E2E="yes" E2E_OUTPUT="base64" ES_VERSION=6.0.0
-  - REQUIREMENTS=devel E2E="yes" E2E_OUTPUT="base64" ES_VERSION=6.0.0
+  {%- if cookiecutter.elasticsearch == "5" %}
+  {%- set elasticsearch_test_version = "5.6.9" %}
+  {%- set elasticsearch_install_arg = "elasticsearch5" %}
+  {%- elif cookiecutter.elasticsearch == "6" %}
+  {%- set elasticsearch_test_version = "6.2.4" %}
+  {%- set elasticsearch_install_arg = "elasticsearch6" %}
+  {%- endif %}
+  - REQUIREMENTS=lowest E2E="no" ES_VERSION={{elasticsearch_test_version}}
+  - REQUIREMENTS=release DEPLOY=true E2E="yes" E2E_OUTPUT="base64" ES_VERSION={{elasticsearch_test_version}}
+  - REQUIREMENTS=devel E2E="yes" E2E_OUTPUT="base64" ES_VERSION={{elasticsearch_test_version}}
 
 python:
   - "2.7"
@@ -53,7 +60,7 @@ before_install:
 
 install:
   - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
-  - "travis_retry pip install -e .[all,postgresql,elasticsearch2]"
+  - "travis_retry pip install -e .[all,postgresql,{{elasticsearch_install_arg}}]"
 
 before_script:
   # https://docs.travis-ci.com/user/gui-and-headless-browsers/
