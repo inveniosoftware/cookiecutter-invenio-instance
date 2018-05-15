@@ -32,7 +32,6 @@ env:
   - REQUIREMENTS=devel E2E="yes" E2E_OUTPUT="base64" ES_VERSION=6.0.0
 
 python:
-  - "2.7"
   - "3.5"
 
 before_install:
