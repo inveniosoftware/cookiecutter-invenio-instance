@@ -3,12 +3,6 @@
 API Docs
 ========
 
-Configuration
--------------
-
-.. automodule:: {{ cookiecutter.package_name }}.config
-   :members:
-
 Views
 -----
 
