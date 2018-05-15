@@ -5,30 +5,31 @@
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
+"""Sphinx configuration."""
 
 from __future__ import print_function
 
-import sys
 import os
-import shlex
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath(os.path.join('..', '..')))
-#sys.path.insert(0, os.path.abspath(os.path.join('_ext')))
+import sphinx.environment
 
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
+# Do not warn on external images.
+suppress_warnings = ['image.nonlocal_uri']
+
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx.ext.coverage',
+    'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
+    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -47,8 +48,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Cookiecutter - Invenio Module Template'
-copyright = u'2015 CERN'
-author = u'Invenio Software Collaboration'
+copyright = u'2018, CERN'
+author = u'CERN'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -105,17 +106,20 @@ todo_include_todos = False
 
 
 # -- Options for HTML output ----------------------------------------------
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+html_theme = 'alabaster'
 
-# only set the theme when we are not on RTD
-if not on_rtd:
-    try:
-        import sphinx_rtd_theme
-        html_theme = "sphinx_rtd_theme"
-        html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-    except ImportError:
-        print("`sphinx_rtd_theme` not found, pip install it", file=sys.stderr)
-        html_theme = 'alabaster'
+html_theme_options = {
+    'description': 'Cookiecutter template for an Invenio instance',
+    'github_user': 'inveniosoftware',
+    'github_repo': 'cookiecutter-invenio-instance',
+    'github_button': False,
+    'github_banner': True,
+    'show_powered_by': False,
+    'extra_nav_links': {
+        'cookiecutter-invenio-instance@GitHub': 'https://github.com/inveniosoftware/cookiecutter-invenio-instance',
+        'cookiecutter-invenio-instance@PyPI': 'https://pypi.python.org/pypi/cookiecutter-invenio-instance/',
+    }
+}
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -147,7 +151,7 @@ if not on_rtd:
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+#html_static_path = ['_static']
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
@@ -163,7 +167,15 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {
+    '**': [
+        'about.html',
+        'navigation.html',
+        'relations.html',
+        'searchbox.html',
+        'donate.html',
+    ]
+}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
@@ -210,7 +222,7 @@ html_static_path = ['_static']
 #html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'cookiecutter-invenio-moduledoc'
+htmlhelp_basename = 'cookiecutter-invenio-instance_namedoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -232,8 +244,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'cookiecutter-invenio-module.tex', u'cookiecutter-invenio-module Documentation',
-   u'Invenio Software Collaboration', 'manual'),
+    (master_doc, 'cookiecutter-invenio-instance.tex', u'cookiecutter-invenio-instance Documentation',
+     u'CERN', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -262,7 +274,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'cookiecutter-invenio-module', u'Cookiecutter - Invenio Module Template Documentation',
+    (master_doc, 'cookiecutter-invenio-instance', u'cookiecutter-invenio-instance Documentation',
      [author], 1)
 ]
 
@@ -276,9 +288,9 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'cookiecutter-invenio-module', u'Cookiecutter - Invenio Module Template Documentation',
-   author, 'cookiecutter-invenio-module', 'One line description of project.',
-   'Miscellaneous'),
+    (master_doc, 'cookiecutter-invenio-instance', u'Cookiecutter - Invenio Module Template Documentation',
+     author, 'cookiecutter-invenio-instance', 'Cookiecutter template for an Invenio instance',
+     'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

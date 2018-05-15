@@ -26,7 +26,7 @@ python:
 before_install:
   - "travis_retry pip install --upgrade pip"
   - "travis_retry pip install cookiecutter"
-  - "travis_retry pip install Sphinx>=1.4.2 sphinx_rtd_theme>=0.1.7"
+  - "travis_retry pip install Sphinx>=1.4.2"
 
 script:
   - "./run-tests.sh"
