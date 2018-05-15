@@ -22,22 +22,30 @@ cache:
   - pip
 
 services:
-  - postgresql
+  - {{ cookiecutter.database }}
   - redis
   - rabbitmq
 
+{%- if cookiecutter.database == "postgresql" %}
+addons:
+  postgresql: "9.6"
+{%- endif %}
+
 env:
-  - REQUIREMENTS=lowest E2E="no" ES_VERSION=6.0.0
-  - REQUIREMENTS=release DEPLOY=true E2E="yes" E2E_OUTPUT="base64" ES_VERSION=6.0.0
-  - REQUIREMENTS=devel E2E="yes" E2E_OUTPUT="base64" ES_VERSION=6.0.0
+  - REQUIREMENTS=lowest E2E="no"
+  - REQUIREMENTS=release DEPLOY=true E2E="yes" E2E_OUTPUT="base64"
 
 python:
   - "3.5"
 
 before_install:
+  {%- if cookiecutter.elasticsearch == "5" %}
+  {%- set elasticsearch_test_version = "5.6.4" %}
+  {%- elif cookiecutter.elasticsearch == "6" %}
+  {%- set elasticsearch_test_version = "6.2.2" %}
+  {%- endif %}
   - mkdir /tmp/elasticsearch
-  - wget -O - https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/${ES_VERSION}/elasticsearch-${ES_VERSION}.tar.gz | tar xz --directory=/tmp/elasticsearch --strip-components=1
-  - "/tmp/elasticsearch/bin/plugin install -b mapper-attachments"
+  - wget -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elasticsearch_test_version }}.tar.gz | tar xz --directory=/tmp/elasticsearch --strip-components=1
   - "/tmp/elasticsearch/bin/elasticsearch &"
   # Gecko webdriver: https://github.com/mozilla/geckodriver/releases/
   - "PATH=$PATH:$HOME/webdrivers"
@@ -51,7 +59,7 @@ before_install:
 
 install:
   - "travis_retry pip install -r .travis-${REQUIREMENTS}-requirements.txt"
-  - "travis_retry pip install -e .[all,postgresql,elasticsearch2]"
+  - "travis_retry pip install -e .[all,{{ cookiecutter.database }},elasticsearch{{ cookiecutter.elasticsearch }}]"
 
 before_script:
   # https://docs.travis-ci.com/user/gui-and-headless-browsers/
