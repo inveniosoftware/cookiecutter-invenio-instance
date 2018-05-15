@@ -8,4 +8,5 @@ from invenio_app.factory import create_app
 
 @pytest.fixture(scope='module')
 def create_app():
+    """Create test app."""
     return create_app

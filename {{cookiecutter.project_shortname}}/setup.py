@@ -8,7 +8,11 @@ from setuptools import find_packages, setup
 readme = open('README.rst').read()
 
 DATABASE = "{{ cookiecutter.database }}"
-ELASTICSEARCH = "{{ cookiecutter.elasticsearch }}"
+{%- if cookiecutter.elasticsearch == "5" %}
+ELASTICSEARCH = "elasticsearch5"
+{%- elif cookiecutter.elasticsearch == "6" %}
+ELASTICSEARCH = "elasticsearch6"
+{%- endif %}
 INVENIO_VERSION = "3.0.0rc1"
 
 tests_require = [
@@ -19,7 +23,7 @@ tests_require = [
     'pydocstyle>=2.0.0',
     'pytest-cache>=1.0',
     'pytest-cov>=2.5.1',
-    'pytest-invenio>=1.0.0a1,<1.1.0',
+    'pytest-invenio>=1.0.0,<1.1.0',
     'pytest-mock>=1.6.0',
     'pytest-pep8>=1.0.6',
     'pytest-random-order>=0.5.4',
