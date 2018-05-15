@@ -47,7 +47,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Cookiecutter - Invenio Module Template'
+project = u'Cookiecutter - Invenio Instance Template'
 copyright = u'2018, CERN'
 author = u'CERN'
 

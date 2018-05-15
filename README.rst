@@ -23,8 +23,21 @@
 
 This `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ template is
 designed to help you to bootstrap an `Invenio
-<https://github.com/inveniosoftware/invenio>`_ service. It offers you the
-following features:
+<https://github.com/inveniosoftware/invenio>`_ service.
+
+Quickstart
+----------
+
+Install the latest Cookiecutter if you haven't installed it yet::
+
+    pip install -U cookiecutter
+
+Generate your Invenio instance::
+
+    cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-instance.git
+
+Features
+--------
 
 - **Python package:** Python package for your service.
 - **Boilerplate files:** `README` including important badges, `AUTHORS` and
