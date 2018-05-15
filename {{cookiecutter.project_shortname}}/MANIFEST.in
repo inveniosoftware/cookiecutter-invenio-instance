@@ -10,5 +10,15 @@
 include .dockerignore
 include .editorconfig
 include .tx/config
+include docker/haproxy/Dockerfile
+include docker/nginx/Dockerfile
+include docker/postgres/Dockerfile
+include Dockerfile
+include scripts/bootstrap
+include scripts/console
+include scripts/server
+include scripts/setup
+include scripts/update
 prune docs/_build
 recursive-include {{ cookiecutter.package_name }} *.po *.pot *.mo
+recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
