@@ -2,6 +2,6 @@
 {% include 'misc/header.py' %}
 set -e
 
-export FLASK_DEBUG=1
-
-invenio run
+script_path=$(dirname "$0")
+invenio run --cert "$script_path"/../docker/nginx/test.crt \
+            --key "$script_path"/../docker/nginx/test.key \
