@@ -13,6 +13,7 @@ set -o errexit
 # quit on unbound symbols:
 set -o nounset
 
+
 WORKDIR=$(mktemp -d)
 
 function finish {
@@ -26,16 +27,15 @@ trap finish EXIT
 sphinx-build -qnN docs docs/_build/html
 cookiecutter --no-input -o "$WORKDIR" . \
     project_name=Generated-Fun \
-    database=postgresql \
-    elasticsearch=elasticsearch6
+    database=${COOKIECUTTER_DATABASE:-postgresql} \
+    elasticsearch=${COOKIECUTTER_ELASTICSEARCH:-elasticsearch6}
 
 cd "${WORKDIR}/generated-fun"
 
 git init
 git add -A
 
-pip install -e .\[all\] --quiet
+./scripts/bootstrap
 
 check-manifest -u || true
-
 ./run-tests.sh

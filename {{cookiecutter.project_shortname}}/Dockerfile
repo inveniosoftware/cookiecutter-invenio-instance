@@ -29,7 +29,7 @@ RUN if [ "$ENVIRONMENT" = "PROD" ]; then pip install -r requirements-pinned.txt;
 
 # Install/create static files
 RUN mkdir -p ${INVENIO_INSTANCE_PATH}
-RUN ./scripts/boostrap
+RUN ./scripts/boostrap ${WORKING_DIR}
 
 # copy uwsgi config files
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
