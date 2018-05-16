@@ -2,7 +2,7 @@
 # This file will include pinned versions of packages
 # TODO: Generate this file by running the following commands:
 #
-# pip install -e .[all]
+# pip install -e .
 # pip install pip-tools
 # pip-compile
 #
