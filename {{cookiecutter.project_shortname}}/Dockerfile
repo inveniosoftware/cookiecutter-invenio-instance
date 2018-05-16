@@ -3,7 +3,7 @@ FROM python:3.5
 
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y git curl vim
-RUN pip install --upgrade setuptools wheel pip uwsgi
+RUN pip install --upgrade setuptools wheel pip uwsgi uwsgitop uwsgi-tools
 
 # Install Node
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -

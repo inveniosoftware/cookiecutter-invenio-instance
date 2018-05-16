@@ -51,7 +51,6 @@ install_requires = [
     'Flask-Debugtoolbar>=0.10.1',
     'invenio[{db},{es},base,auth,metadata]~={version}'.format(
         db=DATABASE, es=ELASTICSEARCH, version=INVENIO_VERSION),
-    'uwsgi>=2.0.15',
 ]
 
 packages = find_packages()
