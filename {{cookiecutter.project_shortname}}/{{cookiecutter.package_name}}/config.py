@@ -115,14 +115,17 @@ JSONSCHEMAS_HOST = '{{cookiecutter.project_shortname}}.com'
 # http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values
 
 #: Secret key - each installation (dev, production, ...) needs a separate key.
+#: It should be changed before deploying.
 SECRET_KEY = 'CHANGE_ME'
 #: Max upload size for form data via application/mulitpart-formdata.
 MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
-
-# REST
-# ====
-#: Enable Cross-Origin Resource Sharing support.
-REST_ENABLE_CORS = True
+#: Sets cookie with the secure flag by default
+SESSION_COOKIE_SECURE = True
+#: Since HAProxy and Nginx route all requests no matter the host header
+#: provided, the allowed hosts variable is set to localhost. In production it
+#: should be set to the correct host and it is strongly recommended to only
+#: route correct hosts to the application.
+APP_ALLOWED_HOSTS = ['localhost']
 
 # Debug
 # =====
