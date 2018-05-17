@@ -4,6 +4,8 @@ set -e
 
 docker-compose  up -d
 
+docker/wait-for-services.sh
+
 # TODO: Clean redis
 
 invenio db destroy --yes-i-know

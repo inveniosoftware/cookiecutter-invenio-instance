@@ -42,4 +42,7 @@ pip-compile
 ./scripts/bootstrap
 
 check-manifest -u || true
+
+./scripts/setup
+
 ./run-tests.sh
