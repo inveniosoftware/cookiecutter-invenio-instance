@@ -20,16 +20,19 @@ cache:
   - pip
 
 services:
-  - mysql
-  - postgresql
-  - redis
-  - rabbitmq
+  - docker
 
 addons:
-  postgresql: "9.6"
+  apt:
+    packages:
+    - docker-ce # Use latest available Docker-CE from official repo
 
 env:
   global:
+    # Latest available version of Docker-Compose at the time of commit.
+    # To download latest available version, one needs to do some (JSON) parsing
+    # as Github doesn't provide an easy way to download the latest release.
+    - DOCKER_COMPOSE_VERSION=1.21.1
     - E2E="no"
   matrix:
     - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4
@@ -41,18 +44,16 @@ python:
   - "3.5"
 
 before_install:
-  - mkdir /tmp/elasticsearch
-  - "wget -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-${ES_VERSION}.tar.gz | tar xz --directory=/tmp/elasticsearch --strip-components=1"
-  - "/tmp/elasticsearch/bin/elasticsearch > /tmp/local-es.log &"
+  # Stop default PostgreSQL instance
+  - sudo /etc/init.d/postgresql stop
+  # Install latest docker-compose, configured by DOCKER_COMPOSE_VERSION env var.
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
   - "nvm install 6; nvm use 6"
   - "travis_retry pip install --upgrade pip setuptools py"
   - "travis_retry pip install cookiecutter twine wheel coveralls requirements-builder sphinx"
-
-before_script:
-  # Allow ES to start
-  - sleep 10
-  - wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200 && echo "Elasticsearch is up!" || cat /tmp/local-es.log
-
 
 script:
   - "./run-tests.sh"
