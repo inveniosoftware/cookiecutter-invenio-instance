@@ -35,6 +35,10 @@ cd "${WORKDIR}/generated-fun"
 git init
 git add -A
 
+pip install -e .
+pip install pip-tools
+pip-compile
+
 ./scripts/bootstrap
 
 check-manifest -u || true
