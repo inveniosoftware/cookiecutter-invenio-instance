@@ -22,22 +22,17 @@ RUN mkdir -p ${WORKING_DIR}/src
 COPY ./ ${WORKING_DIR}/src
 WORKDIR ${WORKING_DIR}/src
 
-# Install Python dependencies
-ARG ENVIRONMENT=DEV
-RUN if [ "$ENVIRONMENT" = "DEV" ]; then pip install -e .[all]; fi;
-RUN if [ "$ENVIRONMENT" = "PROD" ]; then pip install -r requirements-pinned.txt; fi;
-
 # Install/create static files
 RUN mkdir -p ${INVENIO_INSTANCE_PATH}
-RUN ./scripts/bootstrap ${WORKING_DIR}
+RUN ./scripts/bootstrap
 
 # copy uwsgi config files
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
 # Set folder permissions
-RUN chgrp -R 0 ${INVENIO_INSTANCE_PATH} && \
-    chmod -R g=u ${INVENIO_INSTANCE_PATH}
+RUN chgrp -R 0 ${WORKING_DIR} && \
+    chmod -R g=u ${WORKING_DIR}
 
 RUN useradd invenio --uid 1000 --gid 0 && \
-    chown -R invenio:root ${INVENIO_INSTANCE_PATH}
+    chown -R invenio:root ${WORKING_DIR}
 USER 1000

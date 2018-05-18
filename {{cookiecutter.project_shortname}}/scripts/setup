@@ -2,16 +2,13 @@
 {% include 'misc/header.py' %}
 set -e
 
-docker-compose  up -d
-
 # Clean redis
-python -c "import redis; redis.Redis().flushdb()"
-
+invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
 invenio db destroy --yes-i-know
 invenio db init create
-curl -XDELETE localhost:9200/*
+invenio index destroy --yes-i-know
 invenio index init --force
-invenio index queue init
+invenio index queue init purge
 
 # Create admin role to rectict access
 invenio roles create admin
