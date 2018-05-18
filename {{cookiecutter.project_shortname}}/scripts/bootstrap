@@ -9,8 +9,8 @@ npm update && npm install --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js
 
 CWD=`pwd`
 invenio npm
-python_prefix=$(python -c "import sys; print(sys.prefix)")
-cd ${1-$python_prefix}/var/instance/static
+static_folder=$(invenio shell --no-term-title -c "print(app.static_folder)")
+cd $static_folder
 npm install
 cd ${CWD}
 invenio collect -v
