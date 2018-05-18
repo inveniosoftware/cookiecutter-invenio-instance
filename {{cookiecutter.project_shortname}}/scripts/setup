@@ -4,7 +4,8 @@ set -e
 
 docker-compose  up -d
 
-# TODO: Clean redis
+# Clean redis
+python -c "import redis; redis.Redis().flushdb()"
 
 invenio db destroy --yes-i-know
 invenio db init create
