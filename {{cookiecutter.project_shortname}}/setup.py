@@ -28,6 +28,7 @@ tests_require = [
     'pytest-pep8>=1.0.6',
     'pytest-random-order>=0.5.4',
     'pytest>=3.3.1',
+    'selenium>=3.4.3',
 ]
 
 extras_require = {
