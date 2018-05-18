@@ -5,7 +5,7 @@ Installation
 You can install ``{{cookiecutter.project_name}}`` and each service (database, Elasticsearch, etc.) in your machine
 or you can use ``docker-compose`` to run it in one command.
 The easiest way to run Invenio is by using Docker. For a complete installation and usage guide, please refer to
-the `Invenio documentation <https://invenio.readthedocs.io/en/latest/usersguide/>`.
+the `Invenio documentation <https://invenio.readthedocs.io/en/latest/usersguide/>`_.
 
 Quick start
 -----------
@@ -64,4 +64,4 @@ Development setup
 
 The recommended way of developing on Invenio is to install and run the web app locally in your machine, while keeping
 the other services (provided by `docker-compose.yml`) on Docker containers.
-See the `Developer Guide <https://http://invenio.readthedocs.io/en/latest/developersguide/>` documentation.
+See the `Developer Guide <https://http://invenio.readthedocs.io/en/latest/developersguide/>`_ documentation.
