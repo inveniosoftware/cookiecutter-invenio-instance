@@ -107,7 +107,7 @@ SQLALCHEMY_DATABASE_URI = \
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
-JSONSCHEMAS_HOST = '{{cookiecutter.project_shortname}}.com'
+JSONSCHEMAS_HOST = '{{cookiecutter.project_site}}'
 
 # Flask configuration
 # ===================
@@ -129,7 +129,7 @@ APP_ALLOWED_HOSTS = ['localhost']
 
 # OAI-PMH
 # =======
-OAISERVER_ID_PREFIX = 'oai:{{cookiecutter.project_shortname}}.com:'
+OAISERVER_ID_PREFIX = 'oai:{{cookiecutter.project_site}}:'
 
 # Debug
 # =====
