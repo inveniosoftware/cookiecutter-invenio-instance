@@ -127,6 +127,10 @@ SESSION_COOKIE_SECURE = True
 #: route correct hosts to the application.
 APP_ALLOWED_HOSTS = ['localhost']
 
+# OAI-PMH
+# =======
+OAISERVER_ID_PREFIX = 'oai:{{cookiecutter.project_shortname}}.com:'
+
 # Debug
 # =====
 # Flask-DebugToolbar is by default enabled when the application is running in
