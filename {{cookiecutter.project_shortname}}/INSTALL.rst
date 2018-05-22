@@ -31,7 +31,7 @@ Connect to the web container:
 
 .. code-block:: console
 
-    $ docker run -it {{ cookiecutter.project_shortname }}-web-ui /bin/bash
+    $ docker-compose -f docker-compose.full.yml run {{ cookiecutter.project_shortname }}-web-ui /bin/bash
 
 Run the following commands inside the docker container.
 Create the database and tables:
