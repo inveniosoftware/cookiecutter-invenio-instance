@@ -1,6 +1,7 @@
 {
     "project_name": "My site",
     "project_shortname": "{{ cookiecutter.project_name | lower | replace(' ', '-') }}",
+    "project_site": "{{ cookiecutter.project_shortname }}.com",
     "package_name": "{{ cookiecutter.project_shortname | replace('-', '_') }}",
     "github_repo": "{{ cookiecutter.project_shortname }}/{{ cookiecutter.project_shortname }}",
     "description": "Invenio digital library framework.",
