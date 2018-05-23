@@ -6,7 +6,7 @@ set -e
 invenio shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
 invenio db destroy --yes-i-know
 invenio db init create
-invenio index destroy --yes-i-know
+invenio index destroy --force --yes-i-know
 invenio index init --force
 invenio index queue init purge
 
