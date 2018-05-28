@@ -13,7 +13,7 @@ ELASTICSEARCH = "elasticsearch5"
 {%- elif cookiecutter.elasticsearch == "6" %}
 ELASTICSEARCH = "elasticsearch6"
 {%- endif %}
-INVENIO_VERSION = "3.0.0rc1"
+INVENIO_VERSION = "3.0.0rc2"
 
 tests_require = [
     'check-manifest>=0.35',
@@ -21,9 +21,8 @@ tests_require = [
     'isort>=4.3',
     'mock>=2.0.0',
     'pydocstyle>=2.0.0',
-    'pytest-cache>=1.0',
     'pytest-cov>=2.5.1',
-    'pytest-invenio>=1.0.0,<1.1.0',
+    'pytest-invenio>=1.0.2,<1.1.0',
     'pytest-mock>=1.6.0',
     'pytest-pep8>=1.0.6',
     'pytest-random-order>=0.5.4',
