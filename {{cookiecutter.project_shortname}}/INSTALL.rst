@@ -2,66 +2,118 @@
 Installation
 ============
 
-You can install ``{{cookiecutter.project_name}}`` and each service (database, Elasticsearch, etc.) in your machine
-or you can use ``docker-compose`` to run it in one command.
-The easiest way to run Invenio is by using Docker. For a complete installation and usage guide, please refer to
-the `Invenio documentation <https://invenio.readthedocs.io/en/latest/usersguide/>`_.
+First, create a `virtualenv <https://virtualenv.pypa.io/en/stable/installation/>`_
+using `virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/install.html>`_
+in order to sandbox our Python environment for development:
 
-Quick start
------------
+.. code-block:: console
+
+    $ mkvirtualenv my-site
+
+Start all dependent services using docker-compose (this will start {{cookiecutter.database[:-3].title() + cookiecutter.database[-3:].upper()}},
+Elasticsearch {{cookiecutter.elasticsearch}}, RabbitMQ and Redis):
+
+.. code-block:: console
+
+    $ docker-compose up -d
 
 .. note::
 
-    The docker configuration provided in this module uses PostgresSQL and ElasticSearch 6. If you have chosen different
-    database or ElasticSearch version and you want to try this quick start with Docker, modify the ``setup.py``
-    configuration.
+    Make sure you have `enough virtual memory
+    <https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode>`_
+    for Elasticsearch in Docker:
 
-Install `Docker` and ``docker-compose`` in your machine.
-Then, create and run all the docker containers:
+    .. code-block:: shell
 
-.. code-block:: console
+        # Linux
+        $ sysctl -w vm.max_map_count=262144
 
-    $ cd {{ cookiecutter.project_shortname }}
-    $ docker-compose -f docker-compose.full.yml up
+        # macOS
+        $ screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty
+        <enter>
+        linut00001:~# sysctl -w vm.max_map_count=262144
 
-Database and search index
--------------------------
-The last you need to do is to create the database tables and search indexes.
-Connect to the web container:
 
-.. code-block:: console
-
-    $ docker-compose -f docker-compose.full.yml run {{ cookiecutter.project_shortname }}-web-ui /bin/bash
-
-Run the following commands inside the docker container.
-Create the database and tables:
+Next, bootstrap the instance (this will install all Python dependencies and
+build all static assets):
 
 .. code-block:: console
 
-   $ {{ cookiecutter.project_shortname }} db init create
+    $ ./scripts/bootstrap
 
-Create the search indexes and indexing queue:
+Next, create database tables, search indexes and message queues:
 
 .. code-block:: console
 
-    $ {{ cookiecutter.project_shortname }} index init
-    $ {{ cookiecutter.project_shortname }} index queue init
+    $ ./scripts/setup
 
-Open your browser and visit the url https://localhost.
+Running
+-------
+Start the webserver:
 
-.. note::
+.. code-block:: console
 
-    If for some reason something failed during table or index creation, you
-    can remove everything again with:
+    $ ./scripts/server
 
-    .. code-block:: console
+Start the a background worker:
 
-        $ {{ cookiecutter.project_shortname }} db drop --yes-i-know
-        $ {{ cookiecutter.project_shortname }} index destroy --force
+.. code-block:: console
 
-Development setup
------------------
+    $ celery worker -A invenio_app.celery -l INFO
 
-The recommended way of developing on Invenio is to install and run the web app locally in your machine, while keeping
-the other services (provided by `docker-compose.yml`) on Docker containers.
-See the `Developer Guide <https://http://invenio.readthedocs.io/en/latest/developersguide/>`_ documentation.
+Start a Python shell:
+
+.. code-block:: console
+
+    $ ./scripts/console
+
+Upgrading
+---------
+In order to upgrade an existing instance simply run:
+
+.. code-block:: console
+
+    $ ./scripts/update
+
+Testing
+-------
+Run the test suite via the provided script:
+
+.. code-block:: console
+
+    $ ./run-tests.sh
+
+By default, end-to-end tests are skipped. You can include the E2E tests like
+this:
+
+.. code-block:: console
+
+    $ env E2E=yes ./run-tests.sh
+
+For more information about end-to-end testing see `pytest-invenio
+<https://pytest-invenio.readthedocs.io/en/latest/usage.html#running-e2e-tests>`_
+
+Documentation
+-------------
+You can build the documentation with:
+
+.. code-block:: console
+
+    $ python setup.py build_sphinx
+
+Production environment
+----------------------
+You can use simulate a full production environment using the
+``docker-compose.full.yml``. You can start it like this:
+
+.. code-block:: console
+
+    $ docker-compose -f docker-compose.full.yml up -d
+
+In addition to the normal ``docker-compose.yml``, this one will start:
+
+- HAProxy (load balancer)
+- Nginx (web frontend)
+- UWSGI (application container)
+- Celery (background task worker)
+- Flower (Celery monitoring)
