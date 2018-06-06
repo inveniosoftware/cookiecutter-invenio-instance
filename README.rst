@@ -32,9 +32,10 @@ Install the latest Cookiecutter if you haven't installed it yet::
 
     pip install -U cookiecutter
 
-Generate your Invenio instance::
+You can choose the version of invenio you want to generate by selecting the corresponding branch
+when running cookiecutter. For example to generate a version 3.0 instance::
 
-    cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-instance.git
+    cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-instance -c maint-3.0
 
 Features
 --------
@@ -89,3 +90,5 @@ To generate correct files, please provide the following input to Cookiecutter:
 
 Further documentation is available on
 https://cookiecutter-invenio-instance.readthedocs.io/
+
+.. Instance generated from template: 8750cb119cdb97ae9e8bf6ec1498b75d6da23caa
