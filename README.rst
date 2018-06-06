@@ -34,7 +34,7 @@ Install the latest Cookiecutter if you haven't installed it yet::
 
 Generate your Invenio instance::
 
-    cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-instance.git
+    cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-instance.git -c 3.0
 
 Features
 --------

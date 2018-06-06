@@ -30,7 +30,7 @@ BABEL_DEFAULT_LANGUAGE = 'en'
 BABEL_DEFAULT_TIMEZONE = 'Europe/Zurich'
 #: Other supported languages (do not include the default language in list).
 I18N_LANGUAGES = [
-    ('fr', _('French'))
+    # ('fr', _('French'))
 ]
 
 # Base templates
@@ -131,7 +131,7 @@ SESSION_COOKIE_SECURE = True
 #: provided, the allowed hosts variable is set to localhost. In production it
 #: should be set to the correct host and it is strongly recommended to only
 #: route correct hosts to the application.
-APP_ALLOWED_HOSTS = ['localhost']
+APP_ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # OAI-PMH
 # =======
