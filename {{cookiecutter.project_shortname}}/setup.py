@@ -67,7 +67,7 @@ setup(
     version=version,
     description=__doc__,
     long_description=readme,
-    keywords='{{ cookiecutter.project_shortname }} Invenio TODO',
+    keywords='{{ cookiecutter.project_shortname }} Invenio',
     license='MIT',
     author='{{ cookiecutter.author_name }}',
     author_email='{{ cookiecutter.author_email }}',

@@ -1,5 +1,11 @@
 {% include 'misc/header.py' %}
-"""Default configuration for {{cookiecutter.project_name}}."""
+"""Default configuration for {{cookiecutter.project_name}}.
+
+You overwrite and set instance-specific configuration by either:
+
+- Configuration file: ``<virtualenv prefix>/var/instance/invenio.cfg``
+- Environment variables: ``APP_<variable name>``
+"""
 
 from __future__ import absolute_import, print_function
 
