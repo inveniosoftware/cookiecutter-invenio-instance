@@ -43,8 +43,8 @@ Features
 - **Boilerplate files:** `README` including important badges, `AUTHORS` and
   `CHANGES` files.
 - **License:** `MIT <https://opensource.org/licenses/MIT>`_ file and headers.
-- **Installation:** Installation script written as `setup.py` and a
-  requirements calculator for different levels (`min`, `pypi`).
+- **Installation:** Installation workflow and dependency management using
+  `pipenv <https://docs.pipenv.org/:>`_.
 - **Tests:** Testing setup using `pytest <http://pytest.org/latest/>`_.
 - **Documentation:** Documentation generator using `Sphinx
   <http://sphinx-doc.org/>`_. Also includes all files required for `Read the
