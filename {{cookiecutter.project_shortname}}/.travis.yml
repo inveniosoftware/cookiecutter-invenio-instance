@@ -22,14 +22,7 @@ cache:
   - pip
 
 services:
-  - {{ cookiecutter.database }}
-  - redis
-  - rabbitmq
-
-{%- if cookiecutter.database == "postgresql" %}
-addons:
-  postgresql: "9.6"
-{%- endif %}
+  - docker
 
 env:
   global:
@@ -45,14 +38,11 @@ python:
   - "3.6"
 
 before_install:
-  {%- if cookiecutter.elasticsearch == "5" %}
-  {%- set elasticsearch_test_version = "5.6.4" %}
-  {%- elif cookiecutter.elasticsearch == "6" %}
-  {%- set elasticsearch_test_version = "6.2.2" %}
-  {%- endif %}
-  - mkdir /tmp/elasticsearch
-  - wget -O - https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-{{ elasticsearch_test_version }}.tar.gz | tar xz --directory=/tmp/elasticsearch --strip-components=1
-  - "/tmp/elasticsearch/bin/elasticsearch > /tmp/local-es.log &"
+  # Stop default travis services
+  - "sudo service mysql stop"
+  - "sudo service postgresql stop"
+  # Start docker services
+  - "docker-compose up -d"
   # Chrome webdriver for Selenium
   - "PATH=$PATH:$HOME/webdrivers"
   - "if [ ${E2E} == 'yes' ] && [ ! -f $HOME/webdrivers/chromedriver ]; then wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip -P $HOME/webdrivers; unzip -d $HOME/webdrivers $HOME/webdrivers/chromedriver_linux64.zip; fi"
@@ -71,9 +61,8 @@ before_script:
   # https://docs.travis-ci.com/user/gui-and-headless-browsers/
   - "export DISPLAY=:99.0"
   - "if [ ${E2E} == 'yes' ]; then sh -e /etc/init.d/xvfb start; sleep 3; fi"
-  # Allow ES to start
-  - sleep 10
-  - wget -q --waitretry=1 --retry-connrefused -T 10 -O - http://127.0.0.1:9200 && echo "Elasticsearch is up!" || cat /tmp/local-es.log
+  # Allow services running inside docker to start
+  - "./docker/wait-for-services.sh"
 
 script:
   - ./run-tests.sh # E2E tests are skipped if E2E env is set to 'no'

@@ -57,6 +57,13 @@ services:
     {%- elif cookiecutter.database == 'mysql'%}
     image: mysql
     restart: "always"
+    environment:
+      - "MYSQL_ROOT_PASSWORD={{cookiecutter.project_shortname}}"
+      - "MYSQL_DATABAE={{cookiecutter.project_shortname}}"
+      - "MYSQL_USER={{cookiecutter.project_shortname}}"
+      - "MYSQL_PASSWORD={{cookiecutter.project_shortname}}"
+    ports:
+      - "3306:3306"
     {%- endif %}
   mq:
     image: rabbitmq:3-management

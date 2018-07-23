@@ -16,9 +16,10 @@ set -o nounset
 
 WORKDIR=$(mktemp -d)
 
-function finish {
+finish (){
     echo "Cleaning up."
     pip uninstall -y generated_fun
+    docker-compose down
     rm -rf "${WORKDIR}"
 }
 
@@ -32,6 +33,8 @@ cookiecutter --no-input -o "$WORKDIR" . \
 
 cd "${WORKDIR}/generated-fun"
 
+docker-compose up -d
+
 git init
 git add -A
 
@@ -42,4 +45,6 @@ pip-compile
 ./scripts/bootstrap
 
 check-manifest -u || true
+./docker/wait-for-services.sh
+
 ./run-tests.sh
