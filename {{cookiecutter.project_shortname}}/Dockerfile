@@ -1,5 +1,5 @@
 {% include 'misc/header.py' %}
-FROM python:3.5
+FROM python:3.6
 
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y git curl vim
