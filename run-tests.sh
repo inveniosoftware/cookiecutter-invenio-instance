@@ -18,8 +18,8 @@ WORKDIR=$(mktemp -d)
 
 finish (){
     echo "Cleaning up."
-    pip uninstall -y generated_fun
     docker-compose down
+    pipenv --rm || true
     rm -rf "${WORKDIR}"
 }
 
@@ -38,13 +38,9 @@ docker-compose up -d
 git init
 git add -A
 
-pip install -e .
-pip install pip-tools
-pip-compile
-
 ./scripts/bootstrap
 
-check-manifest -u || true
+pipenv run check-manifest -u || true
 ./docker/wait-for-services.sh
 
 ./run-tests.sh

@@ -2,13 +2,10 @@
 Installation
 ============
 
-First, create a `virtualenv <https://virtualenv.pypa.io/en/stable/installation/>`_
-using `virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/install.html>`_
-in order to sandbox our Python environment for development:
-
-.. code-block:: console
-
-    $ mkvirtualenv my-site
+First you need to install
+`pipenv <https://docs.pipenv.org/install/#installing-pipenv>`_, it will handle
+the virtual environment creation for the project in order to sandbox our Python
+environment, as well as manage the dependency installation, among other things.
 
 Start all dependent services using docker-compose (this will start {{cookiecutter.database[:-3].title() + cookiecutter.database[-3:].upper()}},
 Elasticsearch {{cookiecutter.elasticsearch}}, RabbitMQ and Redis):
@@ -49,17 +46,11 @@ Next, create database tables, search indexes and message queues:
 
 Running
 -------
-Start the webserver:
+Start the webserver and the celery worker:
 
 .. code-block:: console
 
     $ ./scripts/server
-
-Start the a background worker:
-
-.. code-block:: console
-
-    $ celery worker -A invenio_app.celery -l INFO
 
 Start a Python shell:
 
@@ -99,7 +90,7 @@ You can build the documentation with:
 
 .. code-block:: console
 
-    $ python setup.py build_sphinx
+    $ pipenv run build_sphinx
 
 Production environment
 ----------------------
