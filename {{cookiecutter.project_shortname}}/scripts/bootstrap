@@ -28,7 +28,7 @@ fi
 pipenv install ${flags[@]}
 {% endraw %}
 
-npm update && npm install --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0
+npm update --prefix `pipenv --venv` && npm install --prefix `pipenv --venv` --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0
 
 CWD=`pwd`
 pipenv run invenio npm
