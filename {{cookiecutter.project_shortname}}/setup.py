@@ -36,6 +36,9 @@ setup(
         'console_scripts': [
             '{{ cookiecutter.project_shortname }} = invenio_app.cli:cli',
         ],
+        'invenio_base.apps': [
+            'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
+        ],
         'invenio_base.blueprints': [
             '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.views:blueprint',
         ],
