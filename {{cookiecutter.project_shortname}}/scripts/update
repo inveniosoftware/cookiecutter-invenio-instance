@@ -5,5 +5,5 @@ set -e
 script_path=$(dirname "$0")
 ./"$script_path"/bootstrap
 
-invenio alembic upgrade
-invenio index init --force
+pipenv run invenio alembic upgrade
+pipenv run invenio index init --force

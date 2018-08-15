@@ -2,16 +2,39 @@
 {% include 'misc/header.py' %}
 set -e
 
-pip install -r requirements.txt
-pip install -e .[all]
+{% raw %}
+# The real bootstrap script starts 20 lines below ;-)
+flags=()
+while test $# -gt 0; do
+    case "$1" in
+        --ci)
+            # We are probably inside travis, check for env variables
+            if [ "$REQUIREMENTS" == "prod" ]; then
+                flags=("--dev" "--ignore-pipfile")
+            fi
+            shift
+            ;;
+        *)
+            # Use the flags that are passed to the script directly to install
+            flags+=("$1")
+            shift
+            ;;
+    esac
+done
+if [ ${#flags[0]} -eq 0 ]; then
+    flags=("--dev" "--skip-lock")
+fi
+
+pipenv install ${flags[@]}
+{% endraw %}
 
 npm update && npm install --silent -g node-sass@4.9.0 clean-css@3.4.19 uglify-js@2.7.3 requirejs@2.2.0
 
 CWD=`pwd`
-invenio npm
-static_folder=$(invenio shell --no-term-title -c "print(app.static_folder)")
+pipenv run invenio npm
+static_folder=$(pipenv run invenio shell --no-term-title -c "print(app.static_folder)")
 cd $static_folder
 npm install
 cd ${CWD}
-invenio collect -v
-invenio assets build
+pipenv run invenio collect -v
+pipenv run invenio assets build
