@@ -1,4 +1,11 @@
 {% include 'misc/header.py' %}
+#
+# This file is an example of what an Invenio production environment would look like.
+# Here you can find a HAProxy load balancer which redirects the traffic to the web frontend, based on nginx.
+# UI application and REST API are separate.
+# There are also a celery worker backend, which can be monitored using Flower, and basics services such as
+# a Redis cache, a database, a message broker (RabbitMQ) and ElasticSearch.
+#
 version: '2.3'
 services:
   # Load balancer
