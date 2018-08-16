@@ -1,0 +1,7 @@
+{% include 'misc/header.py' %}
+FROM inveniosoftware/centos7-python:3.6
+
+COPY ./ .
+COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
+
+RUN ./scripts/bootstrap --deploy

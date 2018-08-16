@@ -1,38 +1,9 @@
 {% include 'misc/header.py' %}
-FROM python:3.6
+FROM {{cookiecutter.project_shortname}}-base:latest
 
-RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y git curl vim
-RUN pip install --upgrade setuptools wheel pip pipenv uwsgi uwsgitop uwsgi-tools
-
-# Install Node
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get install -y nodejs
-RUN npm update
-
-RUN python -m site
-RUN python -m site --user-site
-
-# Install Invenio
-ENV WORKING_DIR=/opt/{{cookiecutter.project_shortname}}
-ENV INVENIO_INSTANCE_PATH=${WORKING_DIR}/var/instance
-
-# copy everything inside /src
-RUN mkdir -p ${WORKING_DIR}/src
-COPY ./ ${WORKING_DIR}/src
-WORKDIR ${WORKING_DIR}/src
-
-# Install/create static files
-RUN mkdir -p ${INVENIO_INSTANCE_PATH}
-RUN ./scripts/bootstrap --system # you might want to add --deploy also
-
-# copy uwsgi config files
+COPY ./ .
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
-# Set folder permissions
-RUN chgrp -R 0 ${WORKING_DIR} && \
-    chmod -R g=u ${WORKING_DIR}
+RUN ./scripts/bootstrap
 
-RUN useradd invenio --uid 1000 --gid 0 && \
-    chown -R invenio:root ${WORKING_DIR}
-USER 1000
+USER ${INVENIO_USER_ID}
