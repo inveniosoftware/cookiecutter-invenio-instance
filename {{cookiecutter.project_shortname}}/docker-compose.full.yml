@@ -30,7 +30,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: uwsgi /opt/{{cookiecutter.project_shortname}}/var/instance/uwsgi_ui.ini
+    command: pipenv run uwsgi /opt/{{cookiecutter.project_shortname}}/var/instance/uwsgi_ui.ini
     image: {{cookiecutter.project_shortname}}-web-ui
     ports:
       - "5000"
@@ -46,7 +46,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: uwsgi /opt/{{cookiecutter.project_shortname}}/var/instance/uwsgi_rest.ini
+    command: pipenv run uwsgi /opt/{{cookiecutter.project_shortname}}/var/instance/uwsgi_rest.ini
     image: {{cookiecutter.project_shortname}}-web-api
     ports:
       - "5001"
@@ -63,7 +63,7 @@ services:
       file: docker-services.yml
       service: app
     restart: "always"
-    command: "celery worker -A invenio_app.celery --loglevel=INFO"
+    command: "pipenv run celery worker -A invenio_app.celery --loglevel=INFO"
     image: {{cookiecutter.project_shortname}}-worker
     links:
       - cache
