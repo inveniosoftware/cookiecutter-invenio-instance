@@ -7,7 +7,7 @@
     "description": "Invenio digital library framework.",
     "author_name": "CERN",
     "author_email": "info@inveniosoftware.org",
-    "year": "2018",
+    "year": "{% now 'local', '%Y' %}",
     "copyright_holder": "{{ cookiecutter.author_name }}",
     "transifex_project": "{{ cookiecutter.project_shortname }}",
     "database": ["postgresql", "mysql"],
