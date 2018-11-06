@@ -34,6 +34,8 @@ env:
     - E2E_OUTPUT=base64
     # Enable end-to-end tests
     - E2E=no
+    # Force pipenv to create a new virtualenv to bypass travis virtualenv.
+    - PIPENV_IGNORE_VIRTUALENVS=1
   matrix:
     - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4
     - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4
