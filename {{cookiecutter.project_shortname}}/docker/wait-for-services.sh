@@ -24,10 +24,10 @@ _db_check(){ docker-compose exec db bash -c "mysql -p{{cookiecutter.project_shor
 check_ready "MySQL" _db_check
 {%- endif %}
 
-_es_check(){ [[ $(curl -sL -w "%{http_code}\\n" "http://localhost:9200/" -o /dev/null)==200 ]]; }
+_es_check(){ curl -sL -w "%{http_code}\\n" "http://localhost:9200/" -o /dev/null | grep '200' &> /dev/null; }
 check_ready "Elasticsearch" _es_check
 
-_redis_check(){ [[ $(docker-compose exec cache bash -c "redis-cli ping")=="PONG" ]]; }
+_redis_check(){ docker-compose exec cache bash -c 'redis-cli ping' | grep 'PONG' &> /dev/null; }
 check_ready "redis" _redis_check
 
 _rabbit_check(){ docker-compose exec mq bash -c "rabbitmqctl status" &>/dev/null; }
