@@ -22,7 +22,7 @@ while test $# -gt 0; do
     esac
 done
 if [ ${#flags[0]} -eq 0 ]; then
-    flags=("--dev" "--skip-lock")
+    flags=("--pre --dev" "--skip-lock")
 fi
 
 pipenv install ${flags[@]}
