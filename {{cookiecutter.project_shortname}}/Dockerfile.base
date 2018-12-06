@@ -2,6 +2,7 @@
 FROM inveniosoftware/centos7-python:3.6
 
 COPY ./ .
-COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
+COPY ./docker/uwsgi/ ${INSTANCE_PATH}
 
-RUN ./scripts/bootstrap --deploy
+USER ${USER_ID}
+RUN ./scripts/bootstrap --deploy --dev --skip-lock --pre

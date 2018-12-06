@@ -2,8 +2,8 @@
 FROM {{cookiecutter.project_shortname}}-base:latest
 
 COPY ./ .
-COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
-RUN ./scripts/bootstrap
+RUN pip install --user .
 
-USER ${INVENIO_USER_ID}
+RUN pipenv run invenio collect -v
+RUN pipenv run invenio webpack buildall
