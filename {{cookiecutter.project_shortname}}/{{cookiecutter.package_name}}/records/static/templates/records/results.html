@@ -1,0 +1,11 @@
+{% include 'misc/header.html' -%}{% raw %}
+<div ng-repeat="record in vm.invenioSearchResults.hits.hits track by $index">
+  <h4><a target="_self" ng-href="/records/{{ record.id }}">{{ record.metadata.title }}</a></h4>
+  <ul class="list-inline">
+      <li ng-repeat='contributor in record.metadata.contributors'>
+        {{ contributor.name }};
+      </li>
+  </ul>
+  <hr />
+</div>
+{% endraw %}

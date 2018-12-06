@@ -14,4 +14,9 @@ echo "Skeleton generated."
 echo "Please fix the following TODOs before you use the generated files:"
 grep --color=always --recursive --context=3 --line-number TODO .
 
+{%- if cookiecutter.datamodel == 'None' %}
+rm -r {{ cookiecutter.package_name }}/records
+rm -r tests/api/test_api_simple_flow.py
+{%- endif %}
+
 rm -r misc/

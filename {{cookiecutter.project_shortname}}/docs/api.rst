@@ -6,5 +6,5 @@ API Docs
 Views
 -----
 
-.. automodule:: {{ cookiecutter.package_name }}.views
+.. automodule:: {{ cookiecutter.package_name }}.theme.views
    :members:
