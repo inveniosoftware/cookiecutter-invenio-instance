@@ -38,16 +38,33 @@ setup(
         ],
         'invenio_base.apps': [
             'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
+            {%- if cookiecutter.datamodel == 'Custom' %}
+            '{{ cookiecutter.package_name }}_records = {{ cookiecutter.package_name }}.records:{{ cookiecutter.datamodel_extension_class }}',
+            {%- endif %}
         ],
         'invenio_base.blueprints': [
-            '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.views:blueprint',
+            '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.theme.views:blueprint',
+            {%- if cookiecutter.datamodel == 'Custom' %}
+            '{{ cookiecutter.package_name }}_records = {{ cookiecutter.package_name }}.records.views:blueprint',
+            {%- endif %}
         ],
         'invenio_config.module': [
             '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.config',
         ],
         'invenio_i18n.translations': [
             'messages = {{ cookiecutter.package_name }}',
-        ]
+        ],
+        {%- if cookiecutter.datamodel == 'Custom' %}
+        'invenio_base.api_apps': [
+            '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.records:{{ cookiecutter.datamodel_extension_class }}',
+         ],
+        'invenio_jsonschemas.schemas': [
+            '{{ cookiecutter.package_name}} = {{ cookiecutter.package_name}}.records.jsonschemas'
+        ],
+        'invenio_search.mappings': [
+            'records = {{ cookiecutter.package_name}}.records.mappings'
+        ],
+        {%- endif %}
     },
     classifiers=[
         'Environment :: Web Environment',

@@ -88,4 +88,4 @@ To generate correct files, please provide the following input to Cookiecutter:
 ==================== =============================================
 
 Further documentation is available on
-https://cookiecutter-invenio-instance.readthedocs.io/
+https://invenio.readthedocs.io/

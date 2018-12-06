@@ -22,6 +22,7 @@ language: python
 matrix:
   fast_finish: true
 
+
 cache:
   - pip
 
@@ -36,17 +37,23 @@ env:
     - E2E=no
     # Force pipenv to create a new virtualenv to bypass travis virtualenv.
     - PIPENV_IGNORE_VIRTUALENVS=1
+
   matrix:
     - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4
     - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4
     - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch6 ES_VERSION=6.2.2 E2E=yes
     - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch6 ES_VERSION=6.2.2
 
+    - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4 COOKIECUTTER_DATAMODEL=None
+    - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4 COOKIECUTTER_DATAMODEL=None
+    - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch6 ES_VERSION=6.2.2 E2E=yes COOKIECUTTER_DATAMODEL=None
+    - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch6 ES_VERSION=6.2.2 COOKIECUTTER_DATAMODEL=None
+
 python:
   - "3.6"
 
 before_install:
-  # Stop a services running by default on travis
+  # Stop the services running by default on travis
   - "sudo service mysql stop"
   - "sudo service postgresql stop"
   # Chrome webdriver for Selenium

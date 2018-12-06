@@ -11,7 +11,7 @@ from __future__ import absolute_import, print_function
 from flask import Blueprint
 
 blueprint = Blueprint(
-    '{{cookiecutter.package_name}}',
+    '{{ cookiecutter.package_name }}',
     __name__,
     template_folder='templates',
     static_folder='static',
