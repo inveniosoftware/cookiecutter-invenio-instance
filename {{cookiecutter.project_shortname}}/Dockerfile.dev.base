@@ -4,4 +4,5 @@ FROM inveniosoftware/centos7-python:3.6
 COPY Pipfile ./
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
-RUN pipenv install --deploy
+RUN pipenv install --deploy --dev --pre
+RUN pipenv run pip install --upgrade marshmallow==2.16.3
