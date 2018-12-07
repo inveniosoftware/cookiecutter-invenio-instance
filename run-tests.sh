@@ -18,28 +18,36 @@ WORKDIR=$(mktemp -d)
 
 finish (){
     echo "Cleaning up."
-    docker-compose down
+    docker-compose down --volumes --remove-orphans &
     pipenv --rm || true
     rm -rf "${WORKDIR}"
 }
 
+deploy_cluster() {
+    docker build -f Dockerfile.dev.base -t my-site-base .
+    docker build . -t my-site -t my-site-web-api -t my-site-web-ui -t my-site-worker
+    docker-compose -f docker-compose.full.yml up -d
+    ./docker/wait-for-services.sh
+}
+
 trap finish EXIT
 
+PROJECT_NAME="my-site"
+
 cookiecutter --no-input -o "$WORKDIR" . \
-    project_name=Generated-Fun \
+    project_name=${PROJECT_NAME} \
     database=${COOKIECUTTER_DATABASE:-postgresql} \
     elasticsearch=${COOKIECUTTER_ELASTICSEARCH:-elasticsearch6}
 
-cd "${WORKDIR}/generated-fun"
+cd "${WORKDIR}/${PROJECT_NAME}"
+pipenv lock --pre
 
-docker-compose up -d
-
+deploy_cluster
+./docker/wait-for-services.sh
+echo "All services are up."
 git init
 git add -A
-
+# check that instance can be started locally as well
 ./scripts/bootstrap
 
 pipenv run check-manifest -u || true
-./docker/wait-for-services.sh
-
-./run-tests.sh

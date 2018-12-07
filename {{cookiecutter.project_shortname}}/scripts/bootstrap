@@ -30,3 +30,4 @@ pipenv install ${flags[@]}
 
 pipenv run invenio collect -v
 pipenv run invenio webpack buildall
+pipenv run pip install .

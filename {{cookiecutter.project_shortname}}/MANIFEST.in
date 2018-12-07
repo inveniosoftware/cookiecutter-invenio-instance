@@ -21,5 +21,5 @@ include scripts/server
 include scripts/setup
 include scripts/update
 prune docs/_build
-recursive-include {{ cookiecutter.package_name }} *.po *.pot *.mo
+recursive-include {{ cookiecutter.package_name }} *.po *.pot *.mo *.json
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
