@@ -12,18 +12,18 @@ from marshmallow import fields, missing, validate
 class PersonIdsSchemaV1(StrictKeysMixin):
     """Ids schema."""
 
-    source = fields.Str()
-    value = fields.Str()
+    source = SanitizedUnicode()
+    value = SanitizedUnicode()
 
 
 class ContributorSchemaV1(StrictKeysMixin):
     """Contributor schema."""
 
     ids = fields.Nested(PersonIdsSchemaV1, many=True)
-    name = fields.Str(required=True)
-    role = fields.Str()
-    affiliations = fields.List(fields.Str())
-    email = fields.Str()
+    name = SanitizedUnicode(required=True)
+    role = SanitizedUnicode()
+    affiliations = fields.List(SanitizedUnicode())
+    email = fields.Email()
 
 
 class MetadataSchemaV1(StrictKeysMixin):
@@ -36,7 +36,7 @@ class MetadataSchemaV1(StrictKeysMixin):
 
     {{ cookiecutter.datamodel_pid_name }} = PersistentIdentifier()
     title = SanitizedUnicode(required=True, validate=validate.Length(min=3))
-    keywords = fields.Nested(fields.Str(), many=True)
+    keywords = fields.List(SanitizedUnicode(), many=True)
     publication_date = DateString()
     contributors = Nested(ContributorSchemaV1, many=True, required=True)
 
