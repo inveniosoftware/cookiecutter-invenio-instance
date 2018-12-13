@@ -34,6 +34,39 @@ Elasticsearch {{cookiecutter.elasticsearch}}, RabbitMQ and Redis):
 Next, bootstrap the instance (this will install all Python dependencies and
 build all static assets):
 
+Creating an environment
+-----------------------
+
+In order to bootstrap and install your instance, it is recommended to use a
+virtual environment. For that we will use ``pipenv``.
+
+.. code-block:: console
+
+    $ pipenv shell
+    Creating a virtualenv for this project…
+    Pipfile: ~/my-site/Pipfile
+    Using /usr/bin/python3.6 (3.6.7) to create virtualenv…
+    ⠧ Creating virtual environment...Already using interpreter /usr/bin/python3.6
+    Using base prefix '/usr'
+    New python executable in /venv/my-site-oIVvLp1Q/bin/python3.6
+    Also creating executable in /venv/my-site-oIVvLp1Q/bin/python
+    Installing setuptools, pip, wheel...
+    done.
+
+    ✔ Successfully created virtual environment!
+    Virtualenv location: /venv/my-site-oIVvLp1Q
+    Creating a Pipfile for this project…
+    Launching subshell in virtual environment…
+     . /venv/my-site-oIVvLp1Q/bin/activate
+    $. /venv/my-site-oIVvLp1Q/bin/activate
+    (my-site)$
+
+Note that this will generate a virtual environment with the name of the
+folder in which you are at (`my-site` in the example above).
+
+Bootstrapping
+-------------
+
 .. code-block:: console
 
     $ ./scripts/bootstrap
@@ -105,6 +138,6 @@ In addition to the normal ``docker-compose.yml``, this one will start:
 
 - HAProxy (load balancer)
 - Nginx (web frontend)
-- UWSGI (application container)
+- uWSGI (application container)
 - Celery (background task worker)
 - Flower (Celery monitoring)
