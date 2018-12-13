@@ -15,12 +15,6 @@
 .. image:: https://img.shields.io/travis/inveniosoftware/cookiecutter-invenio-instance.svg
         :target: https://travis-ci.org/inveniosoftware/cookiecutter-invenio-instance
 
-.. image:: https://img.shields.io/coveralls/inveniosoftware/cookiecutter-invenio-instance.svg
-        :target: https://coveralls.io/r/inveniosoftware/cookiecutter-invenio-instance
-
-.. image:: https://img.shields.io/pypi/v/cookiecutter-invenio-instance.svg
-        :target: https://pypi.org/pypi/cookiecutter-invenio-instance
-
 This `Cookiecutter <https://github.com/audreyr/cookiecutter>`_ template is
 designed to help you to bootstrap an `Invenio
 <https://github.com/inveniosoftware/invenio>`_ service.
