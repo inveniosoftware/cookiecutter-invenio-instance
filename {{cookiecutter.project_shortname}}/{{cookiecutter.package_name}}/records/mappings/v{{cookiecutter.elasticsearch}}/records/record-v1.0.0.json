@@ -16,7 +16,7 @@
           "type": "completion"
         },
         "{{ cookiecutter.datamodel_pid_name }}": {
-          "type": "double"
+          "type": "keyword"
         },
         "keywords": {
           "type": "keyword"
@@ -43,7 +43,7 @@
               "type": "text"
             },
             "role": {
-              "type": "text"
+              "type": "keyword"
             },
             "email": {
               "type": "text"
