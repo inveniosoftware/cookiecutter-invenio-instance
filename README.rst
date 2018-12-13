@@ -57,30 +57,34 @@ Configuration
 -------------
 To generate correct files, please provide the following input to Cookiecutter:
 
-==================== =============================================
-`project_name`       Full project name, might contain spaces.
-`project_shortname`  Project shortname, no spaces allowed, use `-` as a
-                     separator.
-`project_site`       Project website host.
-`package_name`       Package/Module name for Python, must follow `PEP 0008
-                     <https://www.python.org/dev/peps/pep-0008/>`_.
-`github_repo`        GitHub repository of the project in form of `USER/REPO`,
-                     not the full GitHub URL.
-`description`        A short description of the functionality of the module,
-                     its length should not extend one line.
-`author_name`        The name of the primary author of the project, not
-                     necessarily the same as the copyright holder.
-`author_email`       E-Mail address of the primary author.
-`year`               Current year.
-`copyright_holder`   Name of the person or organization who acts as the
-                     copyright holder of this project.
-`transifex_project`  Name of the project on transifex translation platform.
-`database`           The database you are planning to use. PostgreSQL
-                     (`postgresql`) and MySQL (`mysql`) supported at the
-                     moment.
-`elasticsearch`      The version of ElasticSearch you are planning to use.
-                     Versions 5.x (`elasticsearch5`) and 6.x (`elasticsearch6`)
-                     supported at the moment.
-==================== =============================================
+============================ ==============================================================
+`project_name`                Full project name, might contain spaces.
+`project_shortname`           Project shortname, no spaces allowed, use `-` as a
+                              separator.
+`project_site`                Project website host.
+`package_name`                Package/Module name for Python, must follow `PEP 0008
+                              <https://www.python.org/dev/peps/pep-0008/>`_.
+`github_repo`                 GitHub repository of the project in form of `USER/REPO`,
+                              not the full GitHub URL.
+`description`                 A short description of the functionality of the module,
+                              its length should not extend one line.
+`author_name`                 The name of the primary author of the project, not
+                              necessarily the same as the copyright holder.
+`author_email`                E-Mail address of the primary author.
+`year`                        Current year.
+`copyright_holder`            Name of the person or organization who acts as the
+                              copyright holder of this project.
+`transifex_project`           Name of the project on transifex translation platform.
+`database`                    The database you are planning to use. PostgreSQL
+                              (`postgresql`) and MySQL (`mysql`) supported at the
+                              moment.
+`elasticsearch`               The version of ElasticSearch you are planning to use.
+                              Versions 5.x (`elasticsearch5`) and 6.x (`elasticsearch6`)
+                              supported at the moment.
+`datamodel`                   Whether to create a custom model (`Custom`) or continue
+                              without one (`None`).
+`datamodel_extension_class`   Name of the class of your custom datamodel.
+`datamodel_pid_name`          Name of the Persistent IDentifier attribute of the datamodel.
+============================ ==============================================================
 
 Further documentation is available on https://invenio.readthedocs.io/
