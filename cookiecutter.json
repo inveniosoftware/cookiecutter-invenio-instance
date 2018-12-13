@@ -6,7 +6,7 @@
     "github_repo": "{{ cookiecutter.project_shortname }}/{{ cookiecutter.project_shortname }}",
     "description": "Invenio digital library framework.",
     "author_name": "CERN",
-    "author_email": "info@inveniosoftware.org",
+    "author_email": "info@{{ cookiecutter.project_site }}",
     "year": "{% now 'local', '%Y' %}",
     "copyright_holder": "{{ cookiecutter.author_name }}",
     "transifex_project": "{{ cookiecutter.project_shortname }}",
