@@ -40,7 +40,6 @@ RECORDS_REST_ENDPOINTS = {
         default_media_type='application/json',
         max_result_window=10000,
         error_handlers=dict(),
-        # TODO: Redefine these permissions to cover your auth needs
         create_permission_factory_imp=allow_all,
         read_permission_factory_imp=check_elasticsearch,
         update_permission_factory_imp=allow_all,
