@@ -30,7 +30,7 @@ Generate your Invenio instance::
 
     cookiecutter https://github.com/inveniosoftware/cookiecutter-invenio-instance.git -c 3.1
 
-More detailed steps can be found in the [Invenio Quickstart](https://inveniosoftware.org/#getstarted)
+More detailed steps can be found in the https://inveniosoftware.org/#getstarted
 
 Features
 --------
@@ -83,5 +83,4 @@ To generate correct files, please provide the following input to Cookiecutter:
                      supported at the moment.
 ==================== =============================================
 
-Further documentation is available on
-https://invenio.readthedocs.io/
+Further documentation is available on https://invenio.readthedocs.io/
