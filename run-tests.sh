@@ -25,7 +25,6 @@ finish (){
 
 trap finish EXIT
 
-sphinx-build -qnN docs docs/_build/html
 cookiecutter --no-input -o "$WORKDIR" . \
     project_name=Generated-Fun \
     database=${COOKIECUTTER_DATABASE:-postgresql} \
