@@ -1,7 +1,9 @@
 {% include 'misc/header.py' %}
-FROM {{cookiecutter.project_shortname}}-base:latest
+ARG DEPENDENCIES_VERSION=latest
+FROM {{cookiecutter.project_shortname}}-base:${DEPENDENCIES_VERSION}
 
 COPY ./ .
+COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
 RUN pipenv run pip install .
 
