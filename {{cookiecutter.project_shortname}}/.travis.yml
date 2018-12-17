@@ -33,8 +33,6 @@ env:
   matrix:
     - REQUIREMENTS=prod E2E=yes
     - REQUIREMENTS=qa
-    - REQUIREMENTS=prod EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
-    - REQUIREMENTS=qa EXTRAS=all,elasticsearch6,mysql ES_VERSION=6.2.2
 
 python:
   - "3.6"
