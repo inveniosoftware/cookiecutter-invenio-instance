@@ -37,7 +37,6 @@ setup(
             '{{ cookiecutter.project_shortname }} = invenio_app.cli:cli',
         ],
         'invenio_base.apps': [
-            'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
             {%- if cookiecutter.datamodel == 'Custom' %}
             '{{ cookiecutter.package_name }}_records = {{ cookiecutter.package_name }}.records:{{ cookiecutter.datamodel_extension_class }}',
             {%- endif %}
