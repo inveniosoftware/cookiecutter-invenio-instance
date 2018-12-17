@@ -7,10 +7,7 @@ from setuptools import find_packages, setup
 
 readme = open('README.rst').read()
 
-INVENIO_VERSION = "3.1.0.dev20181106"
-
 packages = find_packages()
-
 
 # Get the version string. Cannot be done with import!
 g = {}
@@ -37,7 +34,6 @@ setup(
             '{{ cookiecutter.project_shortname }} = invenio_app.cli:cli',
         ],
         'invenio_base.apps': [
-            'flask_debugtoolbar = flask_debugtoolbar:DebugToolbarExtension',
             {%- if cookiecutter.datamodel == 'Custom' %}
             '{{ cookiecutter.package_name }}_records = {{ cookiecutter.package_name }}.records:{{ cookiecutter.datamodel_extension_class }}',
             {%- endif %}
