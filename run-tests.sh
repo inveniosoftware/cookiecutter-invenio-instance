@@ -13,21 +13,13 @@ set -o errexit
 # quit on unbound symbols:
 set -o nounset
 
-
 WORKDIR=$(mktemp -d)
 
-finish (){
+finish() {
     echo "Cleaning up."
     docker-compose down --volumes --remove-orphans &
     pipenv --rm || true
     rm -rf "${WORKDIR}"
-}
-
-deploy_cluster() {
-    docker build -f Dockerfile.dev.base -t my-site-base .
-    docker build . -t my-site -t my-site-web-api -t my-site-web-ui -t my-site-worker
-    docker-compose -f docker-compose.full.yml up -d
-    ./docker/wait-for-services.sh
 }
 
 trap finish EXIT
@@ -40,14 +32,24 @@ cookiecutter --no-input -o "$WORKDIR" . \
     elasticsearch=${COOKIECUTTER_ELASTICSEARCH:-elasticsearch6}
 
 cd "${WORKDIR}/${PROJECT_NAME}"
-pipenv lock --pre
 
-deploy_cluster
-./docker/wait-for-services.sh
-echo "All services are up."
-git init
-git add -A
-# check that instance can be started locally as well
+# Check local installation (this also generates the Pipfile.lock)
 ./scripts/bootstrap
 
+# Initialize git in the repository for 'check-manifest' to work
+git init
+git add -A
+
+# Update MANIFEST.in
 pipenv run check-manifest -u || true
+
+# Build application docker images
+./docker/build-images.sh
+# Fire up a full instance via docker-compose.full.yml
+# We will use the services (DB, ES, etc) for running the tests locally
+docker-compose -f docker-compose.full.yml up -d
+./docker/wait-for-services.sh
+echo "All services are up."
+
+# Run the instance tests
+REQUIREMENTS=prod ./run-tests.sh
