@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 {% include 'misc/header.py' %}
-# Ignoring flask-admin XSS vulnerability 36437, remove when
-# https://github.com/flask-admin/flask-admin/pull/1699 is merged an released.
-pipenv check --ignore 36437 && \
+# Ignoring false positive 36759 (reporting invenio-admin v1.0.1). This can be
+# removed when https://github.com/pyupio/safety-db/pull/2274 is merged and
+# released.
+pipenv check --ignore 36759 && \
 pipenv run pydocstyle {{ cookiecutter.package_name }} tests docs && \
 pipenv run isort -rc -c -df && \
 pipenv run check-manifest --ignore ".travis-*,docs/_build*" && \
