@@ -1,7 +1,7 @@
 License
 =======
 
-.. include:: ../LICENSE
+.. literalinclude:: ../LICENSE
 
 .. note::
     In applying this license, CERN does not waive the privileges and immunities
