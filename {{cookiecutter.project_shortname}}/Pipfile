@@ -8,6 +8,7 @@ Babel = ">=2.4.0"
 Flask-BabelEx = ">=0.9.3"
 invenio = { version = "==3.1.0.dev20181106", extras = ["base", "metadata", "{{ cookiecutter.database }}", "auth", {%- if cookiecutter.elasticsearch == "5" %} "elasticsearch5", {%- elif cookiecutter.elasticsearch == "6" %} "elasticsearch6" {%- endif %} ]}
 uwsgi = ">=2.0"
+lxml = ">=3.5.0,<4.2.6"
 
 [dev-packages]
 Flask-Debugtoolbar = ">=0.10.1"
