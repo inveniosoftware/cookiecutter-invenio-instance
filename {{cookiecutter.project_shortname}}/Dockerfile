@@ -11,3 +11,5 @@ RUN pipenv run invenio collect -v
 RUN pipenv run invenio webpack create
 RUN pipenv run invenio webpack install --unsafe
 RUN pipenv run invenio webpack build
+
+ENTRYPOINT [ "bash", "-c"]
