@@ -29,11 +29,6 @@ class ContributorSchemaV1(StrictKeysMixin):
 class MetadataSchemaV1(StrictKeysMixin):
     """Schema for the record metadata."""
 
-    def get_{{ cookiecutter.datamodel_pid_name }}(self, obj):
-        """Get record id."""
-        pid = self.context.get('pid')
-        return pid.pid_value if pid else missing
-
     {{ cookiecutter.datamodel_pid_name }} = PersistentIdentifier()
     title = SanitizedUnicode(required=True, validate=validate.Length(min=3))
     keywords = fields.List(SanitizedUnicode(), many=True)
