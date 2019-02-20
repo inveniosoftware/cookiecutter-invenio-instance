@@ -30,7 +30,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: ["pipenv run uwsgi /opt/invenio/var/instance/uwsgi_ui.ini"]
+    command: ["uwsgi /opt/invenio/var/instance/uwsgi_ui.ini"]
     image: {{cookiecutter.project_shortname}}
     ports:
       - "5000"
@@ -46,7 +46,7 @@ services:
     extends:
       file: docker-services.yml
       service: app
-    command: ["pipenv run uwsgi /opt/invenio/var/instance/uwsgi_rest.ini"]
+    command: ["uwsgi /opt/invenio/var/instance/uwsgi_rest.ini"]
     image: {{cookiecutter.project_shortname}}
     ports:
       - "5001"
@@ -63,7 +63,7 @@ services:
       file: docker-services.yml
       service: app
     restart: "always"
-    command: ["pipenv run celery worker -A invenio_app.celery --loglevel=INFO"]
+    command: ["celery worker -A invenio_app.celery --loglevel=INFO"]
     image: {{cookiecutter.project_shortname}}
     links:
       - cache

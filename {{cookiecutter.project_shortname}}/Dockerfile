@@ -7,11 +7,11 @@ FROM {{cookiecutter.project_shortname}}-base:${DEPENDENCIES_VERSION}
 COPY ./ .
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 # install the app
-RUN pipenv run pip install .
+RUN pip install .
 # build your app's assets
-RUN pipenv run invenio collect -v
-RUN pipenv run invenio webpack create
-RUN pipenv run invenio webpack install --unsafe
-RUN pipenv run invenio webpack build
+RUN invenio collect -v
+RUN invenio webpack create
+RUN invenio webpack install --unsafe
+RUN invenio webpack build
 
 ENTRYPOINT [ "bash", "-c"]
