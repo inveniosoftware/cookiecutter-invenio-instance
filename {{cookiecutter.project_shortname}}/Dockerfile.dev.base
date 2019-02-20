@@ -1,8 +1,0 @@
-{% include 'misc/header.py' %}
-FROM inveniosoftware/centos7-python:3.6
-
-COPY Pipfile ./
-COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
-
-RUN pipenv install --deploy --dev
-RUN pipenv run pip install --upgrade
