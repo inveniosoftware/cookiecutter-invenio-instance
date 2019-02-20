@@ -1,6 +1,7 @@
 # This is the dockerfile for your python dependencies only
 {% include 'misc/header.py' %}
-FROM inveniosoftware/centos7-python:3.6 # docker invenio image
+# docker invenio image
+FROM inveniosoftware/centos7-python:3.6
 
 COPY Pipfile Pipfile.lock ./
-RUN pipenv install --deploy
+RUN pipenv install --deploy --system
