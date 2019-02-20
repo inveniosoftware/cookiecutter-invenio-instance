@@ -48,8 +48,14 @@ pipenv run check-manifest -u || true
 # Fire up a full instance via docker-compose.full.yml
 # We will use the services (DB, ES, etc) for running the tests locally
 docker-compose -f docker-compose.full.yml up -d
-./docker/wait-for-services.sh
+./docker/wait-for-services.sh --full
 echo "All services are up."
 
+docker-compose -f docker-compose.full.yml down
+echo "Services successfully stopped"
+
+# Fire up the services we need for testing
+docker-compose up -d
+./docker/wait-for-services.sh
 # Run the instance tests
 REQUIREMENTS=prod ./run-tests.sh
