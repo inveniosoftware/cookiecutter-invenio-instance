@@ -6,38 +6,17 @@ set -e
 script_path=$(dirname "$0")
 pipfile_lock_path="$script_path/../Pipfile.lock"
 
-# The real bootstrap script starts 20 lines below ;-)
-flags=()
-while test $# -gt 0; do
-    case "$1" in
-        # If you need to add special flags to this script, this is the place:
-        # --ci)
-        #     flags=("--dev")
-        #     shift
-        #     ;;
-        *)
-            # Use the flags that are passed to the script directly to sync
-            flags+=("$1")
-            shift
-            ;;
-    esac
-done
-if [ ${#flags[0]} -eq 0 ]; then
-    flags=("--dev")
-fi
-
-
 if [ ! -f $pipfile_lock_path ]; then
     echo "'Pipfile.lock' not found. Generating via 'pipenv lock --dev'..."
     pipenv lock --dev
 fi
 
-# Intall locked dependencies
-pipenv sync ${flags[@]}
+# Installs all packages specified in Pipfile.lock
+pipenv sync --dev
 # Install application code and entrypoints from 'setup.py'
 pipenv run pip install -e $script_path/..
-
 # Build assets
 pipenv run invenio collect -v
 pipenv run invenio webpack buildall
+
 {% endraw %}
