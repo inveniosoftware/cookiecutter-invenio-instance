@@ -63,15 +63,14 @@ Ready to contribute? Here's how to set up `{{ cookiecutter.project_shortname }}`
 
       $ git clone git@github.com:your_name_here/{{ cookiecutter.project_shortname }}.git
 
-3. Install your local copy into a virtualenv. Assuming you have
-   virtualenvwrapper installed, this is how you set up your fork for local
-   development:
+3. Install your local copy. Assuming you have
+   `pipenv <https://docs.pipenv.org/install/#installing-pipenv>`_, installed, this is how you
+   set up your fork for local development:
 
    .. code-block:: console
 
-      $ mkvirtualenv {{ cookiecutter.project_shortname }}
       $ cd {{ cookiecutter.project_shortname }}/
-      $ pip install -e .[all]
+      $ pipenv run install -e .[all]
 
 4. Create a branch for local development:
 
