@@ -10,7 +10,7 @@
     "year": "{% now 'local', '%Y' %}",
     "copyright_holder": "{{ cookiecutter.author_name }}",
     "transifex_project": "{{ cookiecutter.project_shortname }}",
-    "database": ["postgresql", "mysql"],
+    "database": ["postgresql", "mysql", "sqlite"],
     "elasticsearch": ["6", "5"],
     "datamodel": ["Custom", "None"],
     "datamodel_extension_class": "{{ cookiecutter.project_name | replace('-', '') | replace(' ', '') }}",
