@@ -5,6 +5,7 @@
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
+
 addons:
   chrome: stable # https://docs.travis-ci.com/user/chrome
 
@@ -22,7 +23,6 @@ language: python
 matrix:
   fast_finish: true
 
-
 cache:
   - pip
 
@@ -39,14 +39,9 @@ env:
     - PIPENV_IGNORE_VIRTUALENVS=1
 
   matrix:
-    - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4
-    - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4
     - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch6 ES_VERSION=6.6.0 E2E=yes
-    - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch6 ES_VERSION=6.6.0
-
-    - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4 COOKIECUTTER_DATAMODEL=None
-    - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4 COOKIECUTTER_DATAMODEL=None
-    - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch6 ES_VERSION=6.6.0 E2E=yes COOKIECUTTER_DATAMODEL=None
+    - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch6 ES_VERSION=6.6.0 E2E=yes
+    - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=elasticsearch5 ES_VERSION=5.6.4
     - COOKIECUTTER_DATABASE=mysql COOKIECUTTER_ELASTICSEARCH=elasticsearch6 ES_VERSION=6.6.0 COOKIECUTTER_DATAMODEL=None
 
 python:
@@ -67,7 +62,7 @@ before_script:
   # https://docs.travis-ci.com/user/gui-and-headless-browsers/
   - "export DISPLAY=:99.0"
   - "if [ ${E2E} == 'yes' ]; then sh -e /etc/init.d/xvfb start; sleep 3; fi"
-  
+
 script:
   - "./run-tests.sh"
 
