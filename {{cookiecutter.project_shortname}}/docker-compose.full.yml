@@ -1,4 +1,4 @@
-{% include 'misc/header.py' %}
+{% include 'misc/header.py' -%}
 #
 # Example of a full-stack production environment for Invenio.
 #
@@ -7,6 +7,7 @@
 #   $ ./docker/build-images.sh
 #   $ docker-compose -f docker-compose.full.yml up -d
 #   $ ./docker/wait-for-services.sh --full
+#   $ docker-compose -f docker-compose.full.yml run --rm web-ui ./scripts/setup
 #
 # This file is not intended to be used in production, but only serve as an
 # example of a full production environment.
@@ -27,9 +28,9 @@
 version: '2.3'
 services:
   # Load balancer
-  # http://localhost (redirects to https)
-  # https://localhost (application)
-  # http://localhost:8080 (HAProxy statistics)
+  # http://127.0.0.1 (redirects to https)
+  # https://127.0.0.1 (application)
+  # http://127.0.0.1:8080 (HAProxy statistics)
   lb:
     extends:
       file: docker-services.yml
@@ -92,7 +93,7 @@ services:
       - mq
       - db
   # Monitoring of Celery
-  # http://localhost:5555
+  # http://127.0.0.1:5555
   flower:
     extends:
       file: docker-services.yml
@@ -100,7 +101,7 @@ services:
     links:
       - mq
   # Inspect Elasticsearch indexes
-  # http://localhost:5601
+  # http://127.0.0.1:5601
   kibana:
     extends:
       file: docker-services.yml
@@ -116,6 +117,7 @@ services:
     extends:
       file: docker-services.yml
       service: db
+  # http://guest:guest@127.0.0.1:15672
   mq:
     extends:
       file: docker-services.yml

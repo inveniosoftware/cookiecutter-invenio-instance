@@ -17,7 +17,7 @@ WORKDIR=$(mktemp -d)
 
 finish() {
     echo "Cleaning up."
-    docker-compose down --volumes --remove-orphans &
+    docker-compose -f docker-compose.full.yml down --volumes --remove-orphans &
     pipenv --rm || true
     rm -rf "${WORKDIR}"
 }
