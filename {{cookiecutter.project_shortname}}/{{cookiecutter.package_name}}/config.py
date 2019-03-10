@@ -78,6 +78,11 @@ SECURITY_EMAIL_SUBJECT_REGISTER = _(
     "Welcome to {{cookiecutter.project_name}}!")
 #: Redis session storage URL.
 ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
+#: Enable session/user id request tracing. This feature will add X-Session-ID
+#: and X-User-ID headers to HTTP response. You MUST ensure that NGINX (or other
+#: proxies) removes these headers again before sending the response to the
+#: client. Set to False, in case of doubt.
+ACCOUNTS_USERINFO_HEADERS = True
 
 # Celery configuration
 # ====================
