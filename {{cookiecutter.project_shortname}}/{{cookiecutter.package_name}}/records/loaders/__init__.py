@@ -10,8 +10,9 @@ PersistentIdentifier field.
 
 from __future__ import absolute_import, print_function
 
-from invenio_records_rest.loaders.marshmallow import \
-    json_patch_loader, marshmallow_loader
+from invenio_records_rest.loaders.marshmallow import json_patch_loader, \
+    marshmallow_loader
+
 from ..marshmallow import MetadataSchemaV1
 
 #: JSON loader using Marshmallow for data validation.
