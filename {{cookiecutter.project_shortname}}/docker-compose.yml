@@ -1,4 +1,4 @@
-{% include 'misc/header.py' %}
+{% include 'misc/header.py' -%}
 #
 # Backend services for needed for development.
 #

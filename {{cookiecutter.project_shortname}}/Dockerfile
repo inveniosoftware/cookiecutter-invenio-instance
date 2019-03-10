@@ -1,21 +1,25 @@
-# This is the Dockerfile that builds a fully functional image of your app.
-# It is important to keep this file in sync with the bootstrap one since they share
-# the same goal.
-{% include 'misc/header.py' %}
+{% include 'misc/header.py' -%}
+#
+# Dockerfile that builds a fully functional image of your app.
+#
+# Note: It is important to keep the commands in this file in sync with your
+# boostrap script located in ./scripts/bootstrap.
+#
+# In order to increase the build speed, we are extending this image from a base
+# image (built with Dockerfile.base) which only includes your Python
+# dependencies.
+
 ARG DEPENDENCIES_VERSION=latest
-# Get the previously built image(Docker.base) with pip dependencies and extend it.
-# This way the procedure of rebuilding the images is sped up since you don't need
-# to reinstall your dependencies each time you change your application's code.
 FROM {{cookiecutter.project_shortname}}-base:${DEPENDENCIES_VERSION}
 
 COPY ./ .
 COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
-# install the app
-RUN pip install .
-# build your app's assets
-RUN invenio collect -v
-RUN invenio webpack create
-RUN invenio webpack install --unsafe
-RUN invenio webpack build
+
+RUN pip install . && \
+    invenio collect -v  && \
+    invenio webpack create && \
+    # --unsafe needed because we are running as root
+    invenio webpack install --unsafe && \
+    invenio webpack build
 
 ENTRYPOINT [ "bash", "-c"]

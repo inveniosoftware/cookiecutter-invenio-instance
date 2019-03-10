@@ -99,12 +99,23 @@ You can use simulate a full production environment using the
 
 .. code-block:: console
 
+    $ ./docker/build-images.sh
     $ docker-compose -f docker-compose.full.yml up -d
+    $ ./docker/wait-for-services.sh --full
+
+Remember to create database tables, search indexes and message queues if not
+already done:
+
+.. code-block:: console
+
+    $ docker-compose -f docker-compose.full.yml run --rm web-ui ./scripts/setup
 
 In addition to the normal ``docker-compose.yml``, this one will start:
 
-- HAProxy (load balancer)
+- HAProxy (load balancer) -- https://127.0.0.1 and http://127.0.0.1:8080
 - Nginx (web frontend)
 - UWSGI (application container)
 - Celery (background task worker)
-- Flower (Celery monitoring)
+- Flower (Celery monitoring) -- http://127.0.0.1:5555
+- Kibana (Elasticsearch inspection) -- http://127.0.0.1:5601
+- RabbitMQ (message queue) -- http://guest:guest@127.0.0.1:15672
