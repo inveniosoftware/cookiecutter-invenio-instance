@@ -36,7 +36,7 @@ I18N_LANGUAGES = [
 # Base templates
 # ==============
 #: Global base template.
-BASE_TEMPLATE = 'invenio_theme/page.html'
+BASE_TEMPLATE = '{{cookiecutter.package_name}}/page.html'
 #: Cover page base template (used for e.g. login/sign-up).
 COVER_TEMPLATE = 'invenio_theme/page_cover.html'
 #: Footer base template.
