@@ -44,6 +44,9 @@ setup(
             '{{ cookiecutter.package_name }}_records = {{ cookiecutter.package_name }}.records.views:blueprint',
             {%- endif %}
         ],
+        'invenio_assets.webpack': [
+            '{{ cookiecutter.package_name }}_theme = {{ cookiecutter.package_name }}.theme.webpack:theme',
+        ],
         'invenio_config.module': [
             '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.config',
         ],
