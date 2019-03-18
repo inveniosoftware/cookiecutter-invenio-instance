@@ -1,25 +1,42 @@
 {% include 'misc/header.py' %}
-# TODO: Generate this manifest file by running the following commands:
-# (please sort the lines in this file after running below commands)
+# To update your MANIFEST.in, use the following commands:
 #
-#  git init
+#  git init  # if not already done
 #  git add -A
-#  pipenv install --dev # or you can also run ./scripts/bootstrap
-#  pipenv run check-manifest -u
+#  pipenv run check-manifest -u  # to install run "pipenv install --dev"
+#  # please sort the lines in this file after running the commands
 
 # Check manifest will not automatically add these two files:
+
 include .dockerignore
 include .editorconfig
 include .tx/config
+include *.rst
+include *.sh
+include *.yml
+include babel.ini
 include docker/haproxy/Dockerfile
 include docker/nginx/Dockerfile
 include docker/postgres/Dockerfile
 include Dockerfile
+include Dockerfile.base
+include LICENSE
+include Pipfile
+include pytest.ini
 include scripts/bootstrap
 include scripts/console
 include scripts/server
 include scripts/setup
 include scripts/update
 prune docs/_build
-recursive-include {{ cookiecutter.package_name }} *.po *.pot *.mo *.json
+recursive-include docs *.bat
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.txt
+recursive-include docs Makefile
+recursive-include {{ cookiecutter.package_name }} *.gitkeep
+recursive-include {{ cookiecutter.package_name }} *.po *.pot *.mo
+recursive-include {{ cookiecutter.package_name }} *.json *.html *.js *.scss
+recursive-include {{ cookiecutter.package_name }} *.png *.jpg *.svg
 recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
+recursive-include tests *.py
