@@ -108,3 +108,14 @@ RECORDS_REST_DEFAULT_SORT = dict(
     )
 )
 """Set default sorting options."""
+
+RECORDS_FILES_REST_ENDPOINTS = {
+    'RECORDS_REST_ENDPOINTS': {
+        'recid': '/files'
+    },
+}
+"""Records files integration."""
+
+FILES_REST_PERMISSION_FACTORY = \
+    '{{ cookiecutter.package_name }}.records.permissions:files_permission_factory'
+"""Files-REST permissions factory."""
