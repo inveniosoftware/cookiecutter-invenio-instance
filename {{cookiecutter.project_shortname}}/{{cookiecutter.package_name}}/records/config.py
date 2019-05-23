@@ -4,6 +4,7 @@
 from __future__ import absolute_import, print_function
 
 from invenio_indexer.api import RecordIndexer
+from invenio_records_files.api import Record
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, check_elasticsearch
 from invenio_search import RecordsSearch
@@ -19,6 +20,7 @@ RECORDS_REST_ENDPOINTS = {
         pid_minter='recid',
         pid_fetcher='recid',
         default_endpoint_prefix=True,
+        record_class=Record,
         search_class=RecordsSearch,
         indexer_class=RecordIndexer,
         search_index='records',
@@ -36,7 +38,9 @@ RECORDS_REST_ENDPOINTS = {
                                  ':json_v1'),
         },
         list_route='/records/',
-        item_route='/records/<pid(recid):pid_value>',
+        item_route='/records/<pid(recid,'
+                   'record_class="invenio_records_files.api.Record")'
+                   ':pid_value>',
         default_media_type='application/json',
         max_result_window=10000,
         error_handlers=dict(),
@@ -108,3 +112,14 @@ RECORDS_REST_DEFAULT_SORT = dict(
     )
 )
 """Set default sorting options."""
+
+RECORDS_FILES_REST_ENDPOINTS = {
+    'RECORDS_REST_ENDPOINTS': {
+        'recid': '/files'
+    },
+}
+"""Records files integration."""
+
+FILES_REST_PERMISSION_FACTORY = \
+    '{{ cookiecutter.package_name }}.records.permissions:files_permission_factory'
+"""Files-REST permissions factory."""
