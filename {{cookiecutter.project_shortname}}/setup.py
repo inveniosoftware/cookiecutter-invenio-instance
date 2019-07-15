@@ -13,7 +13,7 @@ ELASTICSEARCH = "elasticsearch5"
 {%- elif cookiecutter.elasticsearch == "6" %}
 ELASTICSEARCH = "elasticsearch6"
 {%- endif %}
-INVENIO_VERSION = "3.0.1"
+INVENIO_VERSION = "3.0.2"
 
 tests_require = [
     'check-manifest>=0.35',
