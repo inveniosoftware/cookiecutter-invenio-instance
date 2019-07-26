@@ -79,7 +79,7 @@ To generate correct files, please provide the following input to Cookiecutter:
                               (`postgresql`) and MySQL (`mysql`) supported at the
                               moment.
 `elasticsearch`               The version of ElasticSearch you are planning to use.
-                              Versions 5.x (`elasticsearch5`) and 6.x (`elasticsearch6`)
+                              Versions 6.x (`elasticsearch6`) and 7.x (`elasticsearch7`)
                               supported at the moment.
 `datamodel`                   Whether to create a custom model (`Custom`) or continue
                               without one (`None`).
