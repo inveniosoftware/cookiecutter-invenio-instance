@@ -22,6 +22,7 @@ include Dockerfile
 include Dockerfile.base
 include LICENSE
 include Pipfile
+include Pipfile.lock
 include pytest.ini
 include scripts/bootstrap
 include scripts/console
