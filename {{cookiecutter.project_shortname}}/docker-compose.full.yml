@@ -71,7 +71,7 @@ services:
     command: ["uwsgi /opt/invenio/var/instance/uwsgi_rest.ini"]
     image: {{cookiecutter.project_shortname}}
     ports:
-      - "5001"
+      - "5000"
     volumes:
       - static_data:/opt/invenio/var/instance/static
     links:
