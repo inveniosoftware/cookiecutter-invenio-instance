@@ -48,7 +48,9 @@ RECORDS_REST_ENDPOINTS = {
         read_permission_factory_imp=check_elasticsearch,
         update_permission_factory_imp=allow_all,
         delete_permission_factory_imp=allow_all,
-        list_permission_factory_imp=allow_all
+        list_permission_factory_imp=allow_all,
+        links_factory_imp='invenio_records_files.'
+                          'links:default_record_files_links_factory',
     ),
 }
 """REST API for {{cookiecutter.project_shortname}}."""
