@@ -58,6 +58,8 @@ services:
       - "5000"
     volumes:
       - static_data:/opt/invenio/var/instance/static
+      - uploaded_data:/opt/invenio/var/instance/data
+      - archived_data:/opt/invenio/var/instance/archive
     links:
       - cache
       - es
@@ -74,6 +76,8 @@ services:
       - "5000"
     volumes:
       - static_data:/opt/invenio/var/instance/static
+      - uploaded_data:/opt/invenio/var/instance/data
+      - archived_data:/opt/invenio/var/instance/archive
     links:
       - cache
       - es
@@ -92,6 +96,10 @@ services:
       - es
       - mq
       - db
+    volumes:
+      - static_data:/opt/invenio/var/instance/static
+      - uploaded_data:/opt/invenio/var/instance/data
+      - archived_data:/opt/invenio/var/instance/archive
   # Monitoring of Celery
   # http://127.0.0.1:5555
   flower:
@@ -128,3 +136,5 @@ services:
       service: es
 volumes:
   static_data:
+  uploaded_data:
+  archived_data:
