@@ -43,7 +43,7 @@ services:
       file: docker-services.yml
       service: frontend
     volumes:
-      - static_data:/opt/invenio/var/instance/static
+      - static_data:/opt/invenio/var/instance/static:ro
     links:
       - web-ui
       - web-api
@@ -75,7 +75,6 @@ services:
     ports:
       - "5000"
     volumes:
-      - static_data:/opt/invenio/var/instance/static
       - uploaded_data:/opt/invenio/var/instance/data
       - archived_data:/opt/invenio/var/instance/archive
     links:
@@ -97,7 +96,6 @@ services:
       - mq
       - db
     volumes:
-      - static_data:/opt/invenio/var/instance/static
       - uploaded_data:/opt/invenio/var/instance/data
       - archived_data:/opt/invenio/var/instance/archive
   # Monitoring of Celery
