@@ -4,9 +4,15 @@
 from __future__ import absolute_import, print_function
 
 from invenio_records_rest.schemas import Nested, StrictKeysMixin
-from invenio_records_rest.schemas.fields import DateString, \
+from invenio_records_rest.schemas.fields import DateString, GenFunction, \
     PersistentIdentifier, SanitizedUnicode
 from marshmallow import fields, missing, validate
+
+
+def bucket_from_context(_, context):
+    """Get the record's bucket from context."""
+    record = (context or {}).get('record', {})
+    return record.get('_bucket', missing)
 
 
 class PersonIdsSchemaV1(StrictKeysMixin):
@@ -34,6 +40,7 @@ class MetadataSchemaV1(StrictKeysMixin):
     keywords = fields.List(SanitizedUnicode(), many=True)
     publication_date = DateString()
     contributors = Nested(ContributorSchemaV1, many=True, required=True)
+    _bucket = GenFunction(deserialize=bucket_from_context, load_only=True)
 
 
 class RecordSchemaV1(StrictKeysMixin):
@@ -45,3 +52,5 @@ class RecordSchemaV1(StrictKeysMixin):
     updated = fields.Str(dump_only=True)
     links = fields.Dict(dump_only=True)
     id = PersistentIdentifier()
+    _bucket = GenFunction(
+        serialize=bucket_from_context, deserialize=bucket_from_context)
