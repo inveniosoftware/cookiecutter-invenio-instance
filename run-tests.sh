@@ -29,7 +29,7 @@ PROJECT_NAME="my-site"
 cookiecutter --no-input -o "$WORKDIR" . \
     project_name=${PROJECT_NAME} \
     database=${COOKIECUTTER_DATABASE:-postgresql} \
-    elasticsearch=${COOKIECUTTER_ELASTICSEARCH:-elasticsearch6}
+    elasticsearch=${COOKIECUTTER_ELASTICSEARCH:-elasticsearch7}
 
 cd "${WORKDIR}/${PROJECT_NAME}"
 
