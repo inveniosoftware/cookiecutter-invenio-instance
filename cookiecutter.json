@@ -14,5 +14,6 @@
     "elasticsearch": ["6", "5"],
     "datamodel": ["Custom", "None"],
     "datamodel_extension_class": "{{ cookiecutter.project_name | replace('-', '') | replace(' ', '') }}",
-    "datamodel_pid_name": "id"
+    "datamodel_pid_name": "id",
+    "docker_size": ["light", "normal"]
 }

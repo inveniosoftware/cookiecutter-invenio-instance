@@ -39,14 +39,22 @@ services:
       - "80"
       - "443"
   cache:
+    {%- if cookiecutter.docker_size == 'light'%}
+    image: redis:alpine
+    {%- else %}
     image: redis
+    {%- endif %}
     restart: "always"
     read_only: true
     ports:
       - "6379:6379"
   db:
     {%- if cookiecutter.database == 'postgresql'%}
+    {%- if cookiecutter.docker_size == 'light'%}
+    image: postgres:9.6-alpine
+    {%- else %}
     image: postgres:9.6
+    {%- endif %}
     restart: "always"
     environment:
       - "POSTGRES_USER={{cookiecutter.project_shortname}}"
@@ -66,7 +74,11 @@ services:
       - "3306:3306"
     {%- endif %}
   mq:
+    {%- if cookiecutter.docker_size == 'light'%}
+    image: rabbitmq:3-management-alpine
+    {%- else %}
     image: rabbitmq:3-management
+    {%- endif %}
     restart: "always"
     ports:
       - "15672:15672"

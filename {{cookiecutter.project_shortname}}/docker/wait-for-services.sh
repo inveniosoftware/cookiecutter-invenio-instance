@@ -27,7 +27,11 @@ check_ready "MySQL" _db_check
 _es_check(){ curl --output /dev/null --silent --head --fail http://localhost:9200 &>/dev/null; }
 check_ready "Elasticsearch" _es_check
 
+{%- if cookiecutter.docker_size == 'light'%}
+_redis_check(){ docker-compose exec cache sh -c 'redis-cli ping' | grep 'PONG' &> /dev/null; }
+{%- else %}
 _redis_check(){ docker-compose exec cache bash -c 'redis-cli ping' | grep 'PONG' &> /dev/null; }
+{%- endif %}
 check_ready "Redis" _redis_check
 
 _rabbit_check(){ docker-compose exec mq bash -c "rabbitmqctl status" &>/dev/null; }

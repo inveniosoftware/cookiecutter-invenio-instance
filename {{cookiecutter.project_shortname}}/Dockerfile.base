@@ -7,6 +7,25 @@
 # and includes Pip, Pipenv, Node.js, NPM and some few standard libraries
 # Invenio usually needs.
 
+{%- if cookiecutter.docker_size == 'light'%}
+FROM inveniosoftware/debian10-python:3.6-slim
+{%- else %}
 FROM inveniosoftware/centos7-python:3.6
+{%- endif %}
 COPY Pipfile Pipfile.lock ./
+{%- if cookiecutter.docker_size == 'light'%}
+# As we get a tiny image, we install needed packages (to build UWSGI deps)
+RUN set -ex \
+  && buildDeps=' \
+  gcc \
+  python-dev \
+' \
+&& apt-get update \
+&& apt-get install --no-install-recommends -y \
+  $buildDeps \
+&& pipenv install --deploy --system \
+&& apt-get purge -y --autoremove $buildDeps \
+&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+{%- else %}
 RUN pipenv install --deploy --system
+{%- endif %}

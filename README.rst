@@ -85,6 +85,8 @@ To generate correct files, please provide the following input to Cookiecutter:
                               without one (`None`).
 `datamodel_extension_class`   Name of the class of your custom datamodel.
 `datamodel_pid_name`          Name of the Persistent IDentifier attribute of the datamodel.
+`docker_size`                 Either you want to use Alpine Docker containers or normal
+                              ones.
 ============================ ==============================================================
 
 Further documentation is available on https://invenio.readthedocs.io/
