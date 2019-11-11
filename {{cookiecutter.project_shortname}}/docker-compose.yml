@@ -9,7 +9,9 @@
 #
 # Following services are included:
 # - Cache: Redis (exposed port: 6379)
+{%- if cookiecutter.database != 'sqlite'%}
 # - DB: (PostgresSQL/MySQL) (exposed port: 5432 or 3306)
+{%- endif %}
 # - Message queue: RabbitMQ (exposed ports: 5672, 15672)
 # - Elasticsearch (exposed ports: 9200, 9300)
 #

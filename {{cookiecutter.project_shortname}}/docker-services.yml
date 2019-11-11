@@ -44,6 +44,7 @@ services:
     read_only: true
     ports:
       - "6379:6379"
+  {%- if cookiecutter.database != 'sqlite'%}
   db:
     {%- if cookiecutter.database == 'postgresql'%}
     image: postgres:9.6
@@ -65,6 +66,7 @@ services:
     ports:
       - "3306:3306"
     {%- endif %}
+  {%- endif %}
   mq:
     image: rabbitmq:3-management
     restart: "always"
