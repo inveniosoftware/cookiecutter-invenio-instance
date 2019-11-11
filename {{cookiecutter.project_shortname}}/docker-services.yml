@@ -59,7 +59,7 @@ services:
     restart: "always"
     environment:
       - "MYSQL_ROOT_PASSWORD={{cookiecutter.project_shortname}}"
-      - "MYSQL_DATABAE={{cookiecutter.project_shortname}}"
+      - "MYSQL_DATABASE={{cookiecutter.project_shortname}}"
       - "MYSQL_USER={{cookiecutter.project_shortname}}"
       - "MYSQL_PASSWORD={{cookiecutter.project_shortname}}"
     ports:
@@ -102,7 +102,7 @@ services:
       - "ELASTICSEARCH_URL=http://es:9200"
       {%- endif %}
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ports: 
+    ports:
       - "5601:5601"
   flower:
     image: mher/flower
