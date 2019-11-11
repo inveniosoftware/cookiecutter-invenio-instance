@@ -59,7 +59,7 @@ services:
     restart: "always"
     environment:
       - "MYSQL_ROOT_PASSWORD={{cookiecutter.project_shortname}}"
-      - "MYSQL_DATABAE={{cookiecutter.project_shortname}}"
+      - "MYSQL_DATABASE={{cookiecutter.project_shortname}}"
       - "MYSQL_USER={{cookiecutter.project_shortname}}"
       - "MYSQL_PASSWORD={{cookiecutter.project_shortname}}"
     ports:
