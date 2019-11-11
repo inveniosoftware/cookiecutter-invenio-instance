@@ -46,6 +46,7 @@ services:
       - static_data:/opt/invenio/var/instance/static:ro
     links:
       - web-ui
+      - web-api
   # UI Application
   web-ui:
     extends:
