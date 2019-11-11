@@ -61,16 +61,16 @@ RECORDS_UI_ENDPOINTS = {
     },
     'recid_previewer': {
         'pid_type': 'recid',
-        'route': '/record/<pid_value>/preview/<path:filename>',
-        'view_imp': 'invenio_previewer.views.preview',
+        'route': '/records/<pid_value>/preview/<path:filename>',
+        'view_imp': 'invenio_previewer.views:preview',
         'record_class': 'invenio_records_files.api:Record',
     },
     'recid_files': {
         'pid_type': 'recid',
-        'route': '/record/<pid_value>/files/<path:filename>',
-        'view_imp': 'invenio_records_files.utils.file_download_ui',
+        'route': '/records/<pid_value>/files/<path:filename>',
+        'view_imp': 'invenio_records_files.utils:file_download_ui',
         'record_class': 'invenio_records_files.api:Record',
-   },
+    },
 }
 """Records UI for {{cookiecutter.project_shortname}}."""
 
