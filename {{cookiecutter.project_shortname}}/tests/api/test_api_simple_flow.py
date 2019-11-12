@@ -6,7 +6,7 @@ import json
 from invenio_search import current_search
 
 
-def test_simple_flow(client):
+def test_simple_flow(client, location):
     """Test simple flow using REST API."""
     headers = [('Content-Type', 'application/json')]
     data = {
