@@ -9,6 +9,32 @@
           "type": "text",
           "index": false
         },
+        "_bucket": {
+          "type": "text"
+        },
+        "_files": {
+          "type": "object",
+          "properties": {
+            "key": {
+                "type": "text"
+            },
+            "file_id": {
+              "type": "text"
+            },
+            "bucket": {
+                "type": "text"
+            },
+            "checksum": {
+                "type": "text"
+            },
+            "size": {
+                "type": "text"
+            },
+            "version_id": {
+                "type": "text"
+            }
+          }
+        },
         "title": {
           "type": "text",
           "copy_to": "suggest_title"
