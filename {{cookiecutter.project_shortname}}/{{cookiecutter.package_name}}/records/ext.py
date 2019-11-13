@@ -36,7 +36,7 @@ class {{ cookiecutter.datamodel_extension_class }}(object):
                 app.config['PIDSTORE_RECID_FIELD'] = getattr(config, k)
             elif k == 'FILES_REST_PERMISSION_FACTORY':
                 app.config['FILES_REST_PERMISSION_FACTORY'] =\
-                     getattr(config, k)
+                        getattr(config, k)
             else:
                 for n in ['RECORDS_REST_ENDPOINTS', 'RECORDS_UI_ENDPOINTS',
                           'RECORDS_REST_FACETS', 'RECORDS_REST_SORT_OPTIONS',
