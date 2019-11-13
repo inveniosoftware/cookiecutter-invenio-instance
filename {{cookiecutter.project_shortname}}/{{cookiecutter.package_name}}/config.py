@@ -113,6 +113,11 @@ SQLALCHEMY_DATABASE_URI = \
 {%- elif cookiecutter.database == 'mysql'%}
 SQLALCHEMY_DATABASE_URI = \
     'mysql+pymysql://{{cookiecutter.project_shortname}}:{{cookiecutter.project_shortname}}@localhost/{{cookiecutter.project_shortname}}'
+
+# Disable Flask-DebugToolbar SQLAlchemy pane since it cannnot handle
+# UUID in bytes format
+# https://github.com/mgood/flask-debugtoolbar/issues/112
+DEBUG_TB_ENABLED = False
 {%- endif %}
 
 # JSONSchemas
