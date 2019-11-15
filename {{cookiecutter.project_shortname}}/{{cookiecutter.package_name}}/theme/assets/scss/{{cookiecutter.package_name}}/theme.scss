@@ -3,3 +3,19 @@
 // Check out https://github.com/inveniosoftware/invenio-theme/blob/master/invenio_theme/assets/scss/invenio_theme
 @import "variables";
 @import "../invenio_theme/styles";
+
+
+.hide-on-collapsed {
+	display: block;
+}
+.show-on-collapsed {
+	display: none;
+}
+.panel-toggle.collapsed {
+	.hide-on-collapsed {
+		display: none;
+	}
+	.show-on-collapsed {
+		display: block;
+	}
+}
