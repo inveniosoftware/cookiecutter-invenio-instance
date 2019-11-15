@@ -58,6 +58,7 @@ RECORDS_UI_ENDPOINTS = {
         'pid_type': 'recid',
         'route': '/records/<pid_value>',
         'template': 'records/record.html',
+        'record_class': 'invenio_records_files.api:Record',
     },
     'recid_previewer': {
         'pid_type': 'recid',
