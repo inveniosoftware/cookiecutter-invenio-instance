@@ -17,6 +17,11 @@ def bucket_from_context(_, context):
     record = (context or {}).get('record', {})
     return record.get('_bucket', missing)
 
+def files_from_context(_, context):
+    """Get the record's files from context."""
+    record = (context or {}).get('record', {})
+    return record.get('_files', missing)
+
 
 def files_from_context(_, context):
     """Get the record's files from context."""
