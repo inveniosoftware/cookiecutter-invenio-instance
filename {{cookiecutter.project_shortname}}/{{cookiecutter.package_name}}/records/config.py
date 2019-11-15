@@ -59,6 +59,12 @@ RECORDS_UI_ENDPOINTS = {
         'route': '/records/<pid_value>',
         'template': 'records/record.html',
     },
+    'recid_previewer': {
+        'pid_type': 'recid',
+        'route': '/records/<pid_value>/preview/<path:filename>',
+        'view_imp': 'invenio_previewer.views:preview',
+        'record_class': 'invenio_records_files.api:Record',
+    },
 }
 """Records UI for {{cookiecutter.project_shortname}}."""
 
