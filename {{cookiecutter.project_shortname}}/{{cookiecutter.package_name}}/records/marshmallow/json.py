@@ -17,6 +17,7 @@ def bucket_from_context(_, context):
     record = (context or {}).get('record', {})
     return record.get('_bucket', missing)
 
+
 def files_from_context(_, context):
     """Get the record's files from context."""
     record = (context or {}).get('record', {})
@@ -63,13 +64,10 @@ class MetadataSchemaV1(StrictKeysMixin):
     keywords = fields.List(SanitizedUnicode(), many=True)
     publication_date = DateString()
     contributors = Nested(ContributorSchemaV1, many=True, required=True)
-    _bucket = GenFunction(deserialize=bucket_from_context, load_only=True)
-    _files = GenFunction(deserialize=files_from_context, load_only=True)
     _schema = GenFunction(
         attribute="$schema",
         data_key="$schema",
-        deserialize=schema_from_context,
-        serialize=schema_from_context,
+        deserialize=schema_from_context,  # to be added only when loading
     )
 
 
@@ -82,7 +80,5 @@ class RecordSchemaV1(StrictKeysMixin):
     updated = fields.Str(dump_only=True)
     links = fields.Dict(dump_only=True)
     id = PersistentIdentifier()
-    _bucket = GenFunction(
-        serialize=bucket_from_context, deserialize=bucket_from_context)
-    _files = GenFunction(
+    files = GenFunction(
         serialize=files_from_context, deserialize=files_from_context)

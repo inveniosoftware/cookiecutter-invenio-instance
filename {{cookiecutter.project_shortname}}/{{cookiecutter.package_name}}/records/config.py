@@ -139,3 +139,16 @@ RECORDS_FILES_REST_ENDPOINTS = {
 FILES_REST_PERMISSION_FACTORY = \
     '{{ cookiecutter.package_name }}.records.permissions:files_permission_factory'
 """Files-REST permissions factory."""
+
+PREVIEWER_PREFERENCE = [
+    'csv_dthreejs',
+    'iiif_image',
+    'simple_image',
+    'json_prismjs',
+    'xml_prismjs',
+    'mistune',
+    'pdfjs',
+    'ipynb',
+    'zip',
+]
+"""IIIF previewer preferences."""
