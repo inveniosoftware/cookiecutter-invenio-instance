@@ -10,6 +10,7 @@ theme = WebpackBundle(
     'assets',
     entry={
         '{{ cookiecutter.project_shortname }}-theme': './scss/{{ cookiecutter.package_name }}/theme.scss',
+        '{{ cookiecutter.project_shortname }}-preview': './js/{{ cookiecutter.package_name }}/previewer.js',
     },
     dependencies={
         # add any additional npm dependencies here...
