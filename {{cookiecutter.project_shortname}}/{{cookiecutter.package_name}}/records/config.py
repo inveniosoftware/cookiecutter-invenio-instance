@@ -53,20 +53,25 @@ RECORDS_REST_ENDPOINTS = {
 }
 """REST API for {{cookiecutter.project_shortname}}."""
 
-RECORDS_UI_ENDPOINTS = {
-    'recid': {
-        'pid_type': 'recid',
-        'route': '/records/<pid_value>',
-        'template': 'records/record.html',
-        'record_class': 'invenio_records_files.api:Record',
-    },
-    'recid_previewer': {
-        'pid_type': 'recid',
-        'route': '/records/<pid_value>/preview/<path:filename>',
-        'view_imp': 'invenio_previewer.views:preview',
-        'record_class': 'invenio_records_files.api:Record',
-    },
-}
+RECORDS_UI_ENDPOINTS = dict(
+    recid=dict(
+        pid_type='recid',
+        route='/records/<pid_value>',
+        template='records/record.html',
+    ),
+    recid_preview=dict(
+        pid_type='recid',
+        route='/record/<pid_value>/preview/<path:filename>',
+        view_imp='invenio_previewer.views.preview',
+        record_class='invenio_records_files.api:Record',
+    ),
+    recid_files=dict(
+        pid_type='recid',
+        route='/record/<pid_value>/files/<path:filename>',
+        view_imp='invenio_records_files.utils.file_download_ui',
+        record_class='invenio_records_files.api:Record',
+    ),
+)
 """Records UI for {{cookiecutter.project_shortname}}."""
 
 SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/records/results.html'
