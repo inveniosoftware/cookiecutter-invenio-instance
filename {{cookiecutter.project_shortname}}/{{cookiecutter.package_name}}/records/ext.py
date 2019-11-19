@@ -3,7 +3,9 @@
 
 from __future__ import absolute_import, print_function
 
-from . import config
+from invenio_indexer.signals import before_record_index
+
+from . import config, indexer
 
 
 class {{ cookiecutter.datamodel_extension_class }}(object):
@@ -18,6 +20,10 @@ class {{ cookiecutter.datamodel_extension_class }}(object):
         """Flask application initialization."""
         self.init_config(app)
         app.extensions['{{ cookiecutter.project_shortname}}'] = self
+        before_record_index.dynamic_connect(
+            indexer.indexer_receiver,
+            sender=app,
+            index="records-record-v1.0.0")
 
     def init_config(self, app):
         """Initialize configuration.
