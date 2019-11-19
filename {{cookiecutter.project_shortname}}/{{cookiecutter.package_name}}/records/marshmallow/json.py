@@ -3,16 +3,34 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_jsonschemas import current_jsonschemas
 from invenio_records_rest.schemas import Nested, StrictKeysMixin
 from invenio_records_rest.schemas.fields import DateString, GenFunction, \
     PersistentIdentifier, SanitizedUnicode
 from marshmallow import fields, missing, validate
+
+from {{ cookiecutter.package_name }}.records.api import Record
 
 
 def bucket_from_context(_, context):
     """Get the record's bucket from context."""
     record = (context or {}).get('record', {})
     return record.get('_bucket', missing)
+
+
+def files_from_context(_, context):
+    """Get the record's files from context."""
+    record = (context or {}).get('record', {})
+    return record.get('_files', missing)
+
+
+def schema_from_context(_, context):
+    """Get the record's schema from context."""
+    record = (context or {}).get('record', {})
+    return record.get(
+        "_schema",
+        current_jsonschemas.path_to_url(Record._schema)
+    )
 
 
 class PersonIdsSchemaV1(StrictKeysMixin):
@@ -41,6 +59,13 @@ class MetadataSchemaV1(StrictKeysMixin):
     publication_date = DateString()
     contributors = Nested(ContributorSchemaV1, many=True, required=True)
     _bucket = GenFunction(deserialize=bucket_from_context, load_only=True)
+    _files = GenFunction(deserialize=files_from_context, load_only=True)
+    _schema = GenFunction(
+        attribute="$schema",
+        data_key="$schema",
+        deserialize=schema_from_context,
+        serialize=schema_from_context,
+    )
 
 
 class RecordSchemaV1(StrictKeysMixin):
@@ -54,3 +79,5 @@ class RecordSchemaV1(StrictKeysMixin):
     id = PersistentIdentifier()
     _bucket = GenFunction(
         serialize=bucket_from_context, deserialize=bucket_from_context)
+    _files = GenFunction(
+        serialize=files_from_context, deserialize=files_from_context)
