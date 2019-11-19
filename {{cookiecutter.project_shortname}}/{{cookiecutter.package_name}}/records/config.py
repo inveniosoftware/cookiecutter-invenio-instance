@@ -4,10 +4,11 @@
 from __future__ import absolute_import, print_function
 
 from invenio_indexer.api import RecordIndexer
-from invenio_records_files.api import Record
 from invenio_records_rest.facets import terms_filter
 from invenio_records_rest.utils import allow_all, check_elasticsearch
 from invenio_search import RecordsSearch
+
+from {{ cookiecutter.package_name }}.records.api import Record
 
 
 def _(x):
@@ -39,7 +40,7 @@ RECORDS_REST_ENDPOINTS = {
         },
         list_route='/records/',
         item_route='/records/<pid(recid,'
-                   'record_class="invenio_records_files.api.Record")'
+                   'record_class="{{ cookiecutter.package_name }}.records.api.Record")'
                    ':pid_value>',
         default_media_type='application/json',
         max_result_window=10000,

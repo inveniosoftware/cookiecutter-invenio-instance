@@ -5,6 +5,10 @@
   "title": "{{ cookiecutter.project_name}} v1.0.0",
   "type": "object",
   "properties": {
+    "$schema": {
+      "description": "JSONSchema for the record",
+      "type": "string"
+    },
     "_bucket": {
       "description": "UUID of the deposit bucket.",
       "type": "string"
@@ -47,8 +51,8 @@
       "type": "string"
     },
     "{{ cookiecutter.datamodel_pid_name }}": {
-      "description": "Invenio record identifier (integer).",
-      "type": "number"
+      "description": "Invenio record identifier.",
+      "type": "string"
     },
     "keywords": {
       "description": "Free text keywords.",
@@ -122,6 +126,7 @@
     }
   },
   "required": [
+    "$schema",
     "{{ cookiecutter.datamodel_pid_name }}",
     "contributors",
     "title"
