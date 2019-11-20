@@ -3,9 +3,11 @@
 
 from __future__ import absolute_import, print_function
 
+from invenio_files_rest.signals import file_deleted, file_uploaded
 from invenio_indexer.signals import before_record_index
 
 from . import config, indexer
+from .tasks import update_record_files_async
 
 
 class {{ cookiecutter.datamodel_extension_class }}(object):
@@ -20,10 +22,7 @@ class {{ cookiecutter.datamodel_extension_class }}(object):
         """Flask application initialization."""
         self.init_config(app)
         app.extensions['{{ cookiecutter.project_shortname}}'] = self
-        before_record_index.dynamic_connect(
-            indexer.indexer_receiver,
-            sender=app,
-            index="records-record-v1.0.0")
+        self._register_signals(app)
 
     def init_config(self, app):
         """Initialize configuration.
@@ -51,3 +50,13 @@ class {{ cookiecutter.datamodel_extension_class }}(object):
                     if k == n and with_endpoints:
                         app.config.setdefault(n, {})
                         app.config[n].update(getattr(config, k))
+
+    def _register_signals(self, app):
+        """Register signals."""
+        before_record_index.dynamic_connect(
+            indexer.indexer_receiver,
+            sender=app,
+            index="records-record-v1.0.0")
+
+        file_deleted.connect(update_record_files_async, weak=False)
+        file_uploaded.connect(update_record_files_async, weak=False)
