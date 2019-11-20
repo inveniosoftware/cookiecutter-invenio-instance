@@ -11,6 +11,8 @@ from __future__ import absolute_import, print_function
 
 from datetime import timedelta
 
+from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
+
 
 def _(x):
     """Identity function used to trigger string extraction."""
@@ -155,3 +157,13 @@ OAISERVER_ID_PREFIX = 'oai:{{cookiecutter.project_site}}:'
 
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
+
+# Configures Content Security Policy for PDF Previewer
+# Remove it if you are not using PDF Previewer
+APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {
+    'default-src': ["'self'", "'unsafe-inline'"],
+    'object-src': ["'none'"],
+    'style-src': ["'self'", "'unsafe-inline'"],
+    'font-src': ["'self'", "data:", "https://fonts.gstatic.com",
+                 "https://fonts.googleapis.com"],
+}
