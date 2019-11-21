@@ -24,4 +24,7 @@ def test_simple_flow(client, location):
 
     # retrieve record
     res = client.get('https://localhost:5000/records/1')
+    # Check if the files link is present
+    files_link = 'https://localhost:5000/records/1/files'
+    assert res.json['links']['files'] == files_link
     assert res.status_code == 200
