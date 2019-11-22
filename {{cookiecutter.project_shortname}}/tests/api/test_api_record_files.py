@@ -49,19 +49,20 @@ def _get_record(client, pid_value):
 def test_record_creation(client, location):
     """Test create record using REST API."""
     pid_value, rec = _create_record(client)
-    assert rec["_bucket"]
-    assert "_files" not in rec
+    assert "_bucket" not in rec
+    assert "files" not in rec
+    assert "$schema" not in rec['metadata']
 
     # retrieve record
     rec = _get_record(client, pid_value)
-    assert rec["_bucket"]
-    assert "_files" not in rec
+    assert "_bucket" not in rec
+    assert "files" not in rec
+    assert "$schema" not in rec['metadata']
 
 
 def test_files_creation_deletion(client, location):
     """Test that files are in record metadata."""
-    pid_value, rec = _create_record(client)
-    bucket_id = rec["_bucket"]
+    pid_value, _ = _create_record(client)
 
     # add a file
     headers = [("Content-Type", "application/octet-stream")]
@@ -72,9 +73,9 @@ def test_files_creation_deletion(client, location):
 
     # retrieve record and files
     rec = _get_record(client, pid_value)
-    assert rec["_bucket"] == bucket_id
-    assert rec["_files"]
-    first_file = rec["_files"][0]
+    assert "_bucket" not in rec
+    assert "files" in rec
+    first_file = rec["files"][0]
     first_file["key"] = "test.jpg"
 
     # Check if the files link is present
@@ -89,5 +90,5 @@ def test_files_creation_deletion(client, location):
 
     # retrieve record and files
     rec = _get_record(client, pid_value)
-    assert rec["_bucket"] == bucket_id
-    assert rec["_files"] == []
+    assert "_bucket" not in rec
+    assert rec["files"] == []
