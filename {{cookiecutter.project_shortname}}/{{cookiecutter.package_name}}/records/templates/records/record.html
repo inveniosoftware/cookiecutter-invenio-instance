@@ -2,7 +2,8 @@
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
 
 {%- macro record_content(data) %}
-  {% for key, value in data.items() recursive %}
+  {% set ignore_list = ['_bucket', '$schema'] %}
+  {% for key, value in data.items() if key not in ignore_list recursive %}
     <li class="list-group-item">
     {% if value is mapping %}
         <strong>{{ key }}:</strong>
