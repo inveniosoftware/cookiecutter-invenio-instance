@@ -63,7 +63,7 @@ RECORDS_UI_ENDPOINTS = dict(
         template='records/record.html',
         record_class='invenio_records_files.api:Record',
     ),
-    recid_preview=dict(
+    recid_previewer=dict(
         pid_type='recid',
         route='/records/<pid_value>/preview/<path:filename>',
         view_imp='invenio_previewer.views.preview',
@@ -139,16 +139,3 @@ RECORDS_FILES_REST_ENDPOINTS = {
 FILES_REST_PERMISSION_FACTORY = \
     '{{ cookiecutter.package_name }}.records.permissions:files_permission_factory'
 """Files-REST permissions factory."""
-
-PREVIEWER_PREFERENCE = [
-    'csv_dthreejs',
-    'iiif_image',
-    'simple_image',
-    'json_prismjs',
-    'xml_prismjs',
-    'mistune',
-    'pdfjs',
-    'ipynb',
-    'zip',
-]
-"""IIIF previewer preferences."""
