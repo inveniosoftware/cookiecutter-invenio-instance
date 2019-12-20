@@ -12,6 +12,7 @@ from __future__ import absolute_import, print_function
 from datetime import timedelta
 
 from invenio_app.config import APP_DEFAULT_SECURE_HEADERS
+from invenio_previewer.config import PREVIEWER_PREFERENCE as BASE_PREFERENCE
 
 
 def _(x):
@@ -148,6 +149,11 @@ APP_ALLOWED_HOSTS = ['{{cookiecutter.project_site}}', 'localhost', '127.0.0.1']
 # OAI-PMH
 # =======
 OAISERVER_ID_PREFIX = 'oai:{{cookiecutter.project_site}}:'
+
+# Previewers
+# ==========
+#: Include IIIF preview for images.
+PREVIEWER_PREFERENCE = ['iiif_image'] + BASE_PREFERENCE
 
 # Debug
 # =====

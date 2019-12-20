@@ -1,6 +1,8 @@
 {% include 'misc/header.tpl' -%}{% raw %}
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
 
+{% from 'invenio_previewer/macros.html' import file_list, preview_file %}
+
 {%- macro record_content(data) %}
   {% set ignore_list = ['_bucket', '$schema'] %}
   {% for key, value in data.items() if key not in ignore_list recursive %}
@@ -30,56 +32,6 @@
   {% endfor %}
 {%- endmacro %}
 
-{%- macro file_list(files) -%}
-  <div class="panel files-box" id="files">
-    <div class="panel-heading">
-      <a class="panel-toggle" data-toggle="collapse" href="#collapsableFiles">
-        {{ _("Files") }}
-        <span class="pull-right show-on-collapsed"><i class="fa fa-chevron-right"></i></span>
-        <span class="pull-right hide-on-collapsed"><i class="fa fa-chevron-down"></i></span>
-      </a>
-      <small class="text-muted">{% if files %} ({{files|sum(attribute='size')|filesizeformat}}){% endif %}</small>
-    </div>
-    <div class="collapse in" id="collapsableFiles">
-      <table class="table table-striped" >
-        <thead>
-          <tr class="">
-            <th>{{_('Name')}}</th>
-            <th>{{_('Size')}}</th>
-          </tr>
-        </thead>
-        <tbody>
-        {%- for file in files|sort(attribute='key') -%}
-        {%- set file_url_download = url_for('invenio_records_ui.recid_files', pid_value=pid.pid_value, filename=file.key, download=1) %}
-        {%- set file_url_preview = url_for('invenio_records_ui.recid_preview', pid_value=pid.pid_value, filename=file.key) %}
-          <tr>
-            <td>
-              <a class="filename preview-link" href="#preview" data-url="{{file_url_preview}}">{{ file.key }}</a>
-              <br/><small class="text-muted nowrap">{{file.checksum}} <i class="fa fa-question-circle text-muted" data-toggle="tooltip" tooltip data-placement="top" title="{{_('This is the file fingerprint (MD5 checksum), which can be used to verify the file integrity.')}}"></i></small>
-            </td>
-            <td class="nowrap">{{ file.size|filesizeformat }}</td>
-            <td class="nowrap">
-              <span class="pull-right">
-                {% set file_type = file.key.split('.')[-1] %}
-                {% if file_type is previewable %}
-                  <button class="btn preview-link btn-xs btn-default" data-url="{{file_url_preview}}">
-                    <i class="fa fa-eye"></i> {{_("Preview")}}
-                  </button>
-                {% endif %}
-                <a class="btn btn-xs btn-default" href="{{file_url_download}}">
-                  <i class="fa fa-download"></i> {{_("Download")}}
-                </a>
-              </span>
-            </td>
-          </tr>
-        {%- endfor -%}
-        </tbody>
-      </table>
-    </div>
-  </div>
-{%- endmacro %}
-
-
 {% macro preview(files) %}
   {% set selected_file = files|select_preview_file %}
   {%- if selected_file -%}
@@ -92,22 +44,11 @@
         </a>
       </div>
       <div id="collapsablePreview" class="collapse in">
-        {{- preview_file('invenio_records_ui.recid_preview', pid=pid, filename=selected_file.key) }}
+        {{- preview_file('invenio_records_ui.recid_previewer', pid=pid, filename=selected_file.key) }}
       </div>
     </div>
   {%- endif %}
 {%- endmacro %}
-
-
-{%- macro preview_file(preview_endpoint, pid, filename, id='preview-iframe', width='100%', height='400') %}
-  <iframe
-   class="preview-iframe"
-   id="{{id}}"
-   width="{{width}}"
-   height="{{height}}"
-   src="{{ url_for(preview_endpoint, pid_value=pid.pid_value, filename=filename) }}"></iframe>
-{%- endmacro %}
-
 
 {%- block page_body %}
   <div class="container">
@@ -120,7 +61,7 @@
     {% set files = record._files %}
     {{ preview(files) }}
     {%- if files -%}
-      {{ file_list(files) }}
+      {{ file_list(files, pid) }}
     {%- endif %}
   </div>
   {{ webpack['{%- endraw %}{{cookiecutter.project_shortname}}{%- raw %}-preview.js'] }}
