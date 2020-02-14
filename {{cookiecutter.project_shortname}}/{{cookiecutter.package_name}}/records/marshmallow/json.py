@@ -24,12 +24,6 @@ def files_from_context(_, context):
     return record.get('_files', missing)
 
 
-def files_from_context(_, context):
-    """Get the record's files from context."""
-    record = (context or {}).get('record', {})
-    return record.get('_files', missing)
-
-
 def schema_from_context(_, context):
     """Get the record's schema from context."""
     record = (context or {}).get('record', {})
