@@ -7,17 +7,6 @@ from invenio_search import current_search
 from six import BytesIO
 
 
-def _new_record_payload():
-    """Return the payload to create a new record."""
-    data = {
-            "title": "The title of the record ",
-            "contributors": [
-                {"name": "Ellis Jonathan"},
-            ]
-        }
-    return headers, data
-
-
 def _create_record(client):
     """Create record."""
     headers = [("Content-Type", "application/json")]
