@@ -37,6 +37,7 @@ env:
     - E2E=no
     # Force pipenv to create a new virtualenv to bypass travis virtualenv.
     - PIPENV_IGNORE_VIRTUALENVS=1
+    - PIPENV_PYUP_API_KEY=""
 
   matrix:
     - COOKIECUTTER_DATABASE=postgresql COOKIECUTTER_ELASTICSEARCH=7 E2E=yes
