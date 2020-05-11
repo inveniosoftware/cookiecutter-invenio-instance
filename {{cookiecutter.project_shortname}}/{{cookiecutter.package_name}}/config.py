@@ -87,6 +87,15 @@ ACCOUNTS_SESSION_REDIS_URL = 'redis://localhost:6379/1'
 #: client. Set to False, in case of doubt.
 ACCOUNTS_USERINFO_HEADERS = True
 
+# Sessions
+# ========
+#: SameSite cookie type to be used to store user sessions.
+SESSION_COOKIE_SAMESITE = 'Strict'
+
+#: Session maniputalion interface (Flask-KVSession).
+SESSION_INTERFACE_FACTORY = \
+    'invenio_accounts.sessions:KVSessionInterfaceStoreAuthenticated'
+
 # Celery configuration
 # ====================
 
