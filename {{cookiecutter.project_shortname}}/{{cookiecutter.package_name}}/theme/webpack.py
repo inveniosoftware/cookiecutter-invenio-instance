@@ -1,18 +1,21 @@
 {% include 'misc/header.py' %}
 """JS/CSS Webpack bundles for theme."""
 
-from __future__ import absolute_import, print_function
+from invenio_assets.webpack import WebpackThemeBundle
 
-from flask_webpackext import WebpackBundle
-
-theme = WebpackBundle(
+theme = WebpackThemeBundle(
     __name__,
     'assets',
-    entry={
-        '{{ cookiecutter.project_shortname }}-theme': './scss/{{ cookiecutter.package_name }}/theme.scss',
-        '{{ cookiecutter.project_shortname }}-preview': './js/{{ cookiecutter.package_name }}/previewer.js',
-    },
-    dependencies={
-        # add any additional npm dependencies here...
+    default='semantic-ui',
+    themes={
+        'semantic-ui': dict(
+            entry={
+                # CHANGE ME TO LESS '{{ cookiecutter.project_shortname }}-theme': './less/{{ cookiecutter.package_name }}/theme.less',
+                '{{ cookiecutter.project_shortname }}-preview': './js/{{ cookiecutter.package_name }}/previewer.js',
+            },
+            dependencies={
+                # add any additional npm dependencies here...
+            }
+        )
     }
 )

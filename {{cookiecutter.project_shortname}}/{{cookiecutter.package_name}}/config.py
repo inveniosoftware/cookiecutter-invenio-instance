@@ -51,7 +51,9 @@ SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 
 # Theme configuration
 # ===================
-#: Site name
+#: The Invenio theme.
+APP_THEME = ['semantic-ui']
+#: Site name.
 THEME_SITENAME = _('{{cookiecutter.project_name}}')
 #: Use default frontpage.
 THEME_FRONTPAGE = True

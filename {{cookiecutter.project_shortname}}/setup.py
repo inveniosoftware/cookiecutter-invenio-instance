@@ -46,6 +46,7 @@ setup(
         ],
         'invenio_assets.webpack': [
             '{{ cookiecutter.package_name }}_theme = {{ cookiecutter.package_name }}.theme.webpack:theme',
+            '{{ cookiecutter.package_name }}_search_app = {{ cookiecutter.package_name }}.records.webpack:search_app',
         ],
         'invenio_config.module': [
             '{{ cookiecutter.package_name }} = {{ cookiecutter.package_name }}.config',

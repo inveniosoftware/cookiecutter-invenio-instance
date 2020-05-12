@@ -78,8 +78,7 @@ RECORDS_UI_ENDPOINTS = dict(
 )
 """Records UI for {{cookiecutter.project_shortname}}."""
 
-SEARCH_UI_JSTEMPLATE_RESULTS = 'templates/records/results.html'
-"""Result list template."""
+SEARCH_UI_SEARCH_TEMPLATE = '{{cookiecutter.package_name}}/records/search.html'
 
 PIDSTORE_RECID_FIELD = '{{ cookiecutter.datamodel_pid_name }}'
 

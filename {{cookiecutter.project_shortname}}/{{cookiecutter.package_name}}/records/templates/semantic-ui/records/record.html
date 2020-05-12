@@ -1,7 +1,7 @@
 {% include 'misc/header.tpl' -%}{% raw %}
 {%- extends config.RECORDS_UI_BASE_TEMPLATE %}
 
-{% from 'invenio_previewer/macros.html' import file_list, preview_file %}
+{% from 'semantic-ui/invenio_previewer/macros.html' import file_list, preview_file %}
 
 {%- macro record_content(data) %}
   {% set ignore_list = ['_bucket', '$schema'] %}

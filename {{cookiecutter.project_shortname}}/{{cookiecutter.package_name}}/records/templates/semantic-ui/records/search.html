@@ -1,0 +1,5 @@
+{% extends "semantic-ui/invenio_search_ui/search.html" %}
+
+{%- block javascript_override_searchapp %}
+  {{ webpack['{%- endraw %}{{cookiecutter.project_shortname}}{%- raw %}-search-app.js'] }}
+{%- endblock javascript_override_searchapp %}
