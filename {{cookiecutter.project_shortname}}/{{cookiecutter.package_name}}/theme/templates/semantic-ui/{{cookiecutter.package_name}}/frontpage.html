@@ -1,0 +1,15 @@
+{%- include 'misc/header.tpl' -%}
+{%- raw -%}
+{%- extends "semantic-ui/invenio_theme/frontpage.html" %}
+
+{% block page_body %}
+<div class="ui container grid">
+  <div class="row">
+    <div class="column">
+{%- endraw -%}
+    <h1 class="ui header centered">Welcome to {{cookiecutter.project_name}}.</h1>
+{%- raw -%}
+  </div>
+</div>
+{% endblock %}
+{%- endraw -%}

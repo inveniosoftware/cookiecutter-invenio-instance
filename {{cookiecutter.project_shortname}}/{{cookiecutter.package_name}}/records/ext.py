@@ -34,8 +34,8 @@ class {{ cookiecutter.datamodel_extension_class }}(object):
         for k in dir(config):
             if k.startswith('{{ cookiecutter.package_name | upper }}_'):
                 app.config.setdefault(k, getattr(config, k))
-            elif k == 'SEARCH_UI_JSTEMPLATE_RESULTS':
-                app.config['SEARCH_UI_JSTEMPLATE_RESULTS'] = getattr(
+            elif k == 'SEARCH_UI_SEARCH_TEMPLATE':
+                app.config['SEARCH_UI_SEARCH_TEMPLATE'] = getattr(
                     config, k)
             elif k == 'PIDSTORE_RECID_FIELD':
                 app.config['PIDSTORE_RECID_FIELD'] = getattr(config, k)
