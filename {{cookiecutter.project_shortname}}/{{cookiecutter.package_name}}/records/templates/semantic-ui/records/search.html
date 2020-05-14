@@ -1,0 +1,8 @@
+{%- include 'misc/header.tpl' -%}
+{%- raw -%}
+{%- extends "semantic-ui/invenio_search_ui/search.html" %}
+
+{% block javascript_searchapp_customization %}
+  {{ webpack['{%- endraw -%}{{cookiecutter.project_shortname}}{%- raw -%}-search-app.js'] }}
+{% endblock javascript_searchapp_customization %}
+{%- endraw -%}

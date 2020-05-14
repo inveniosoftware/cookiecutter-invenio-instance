@@ -6,13 +6,20 @@ set -e
 script_path=$(dirname "$0")
 pipfile_lock_path="$script_path/../Pipfile.lock"
 
-if [ ! -f $pipfile_lock_path ]; then
-    echo "'Pipfile.lock' not found. Generating via 'pipenv lock --dev'..."
-    pipenv lock --dev
-fi
+# START: PUT ME BACK
+# if [ ! -f $pipfile_lock_path ]; then
+#     echo "'Pipfile.lock' not found. Generating via 'pipenv lock --dev'..."
+#     pipenv lock --dev
+# fi
 
-# Installs all packages specified in Pipfile.lock
-pipenv sync --dev
+# # Installs all packages specified in Pipfile.lock
+# pipenv sync --dev
+# /END: PUT ME BACK
+
+# START: REMOVE ME
+pipenv run pip install -e git+https://github.com/inveniosoftware/invenio.git#egg=invenio["base","auth","metadata","files","postgresql","elasticsearch7"]
+# /END: REMOVE ME
+
 # Install application code and entrypoints from 'setup.py'
 pipenv run pip install -e $script_path/..
 # Build assets

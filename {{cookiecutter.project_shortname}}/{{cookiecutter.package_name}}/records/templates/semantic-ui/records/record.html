@@ -1,7 +1,8 @@
-{% include 'misc/header.tpl' -%}{% raw %}
-{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
+{%- include 'misc/header.tpl' -%}
+{%- raw -%}
+{% extends config.RECORDS_UI_BASE_TEMPLATE %}
 
-{% from 'invenio_previewer/macros.html' import file_list, preview_file %}
+{#{% from 'semantic-ui/invenio_previewer/macros.html' import file_list, preview_file %}#}
 
 {%- macro record_content(data) %}
   {% set ignore_list = ['_bucket', '$schema'] %}
@@ -32,7 +33,7 @@
   {% endfor %}
 {%- endmacro %}
 
-{% macro preview(files) %}
+{#{% macro preview(files) %}}
   {% set selected_file = files|select_preview_file %}
   {%- if selected_file -%}
     <div class="panel" id="preview">
@@ -48,22 +49,22 @@
       </div>
     </div>
   {%- endif %}
-{%- endmacro %}
+{%- endmacro %}#}
 
 {%- block page_body %}
-  <div class="container">
+  <div class="ui container">
     <h2>{{record.title}}</h2>
     <div class="panel panel-default">
       <ul class="list-group">
         {{ record_content(record) }}
       </ul>
     </div>
-    {% set files = record._files %}
+    {#{% set files = record._files %}
     {{ preview(files) }}
     {%- if files -%}
       {{ file_list(files, pid) }}
-    {%- endif %}
+    {%- endif %}#}
   </div>
-  {{ webpack['{%- endraw %}{{cookiecutter.project_shortname}}{%- raw %}-preview.js'] }}
+  {{ webpack['{%- endraw -%}{{cookiecutter.project_shortname}}{%- raw -%}-preview.js'] }}
 {%- endblock %}
-{% endraw %}
+{%- endraw -%}

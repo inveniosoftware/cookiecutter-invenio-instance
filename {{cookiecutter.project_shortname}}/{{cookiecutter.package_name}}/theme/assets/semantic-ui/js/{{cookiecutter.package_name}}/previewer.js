@@ -1,3 +1,5 @@
+{% include 'misc/header.js' -%}
+{%- raw %}
 import $ from "jquery";
 
 $("#files")
@@ -6,3 +8,4 @@ $("#files")
     $("#preview").show();
     $("#preview-iframe").attr("src", $(event.target).data("url"));
   });
+{%- endraw %}

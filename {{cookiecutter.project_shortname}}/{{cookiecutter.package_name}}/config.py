@@ -51,7 +51,9 @@ SETTINGS_TEMPLATE = 'invenio_theme/page_settings.html'
 
 # Theme configuration
 # ===================
-#: Site name
+#: The Invenio theme.
+APP_THEME = ['semantic-ui']
+#: Site name.
 THEME_SITENAME = _('{{cookiecutter.project_name}}')
 #: Use default frontpage.
 THEME_FRONTPAGE = True
@@ -169,7 +171,6 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 APP_DEFAULT_SECURE_HEADERS['content_security_policy'] = {
     'default-src': ["'self'", "'unsafe-inline'"],
     'object-src': ["'none'"],
-    'style-src': ["'self'", "'unsafe-inline'"],
-    'font-src': ["'self'", "data:", "https://fonts.gstatic.com",
-                 "https://fonts.googleapis.com"],
+    'style-src': ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+    'font-src': ["'self'", "data:", "https://fonts.gstatic.com"],
 }
