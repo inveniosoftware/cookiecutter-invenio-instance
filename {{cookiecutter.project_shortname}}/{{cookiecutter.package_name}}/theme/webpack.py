@@ -15,7 +15,10 @@ theme = WebpackThemeBundle(
             },
             dependencies={
                 # add any additional npm dependencies here...
-            }
-        )
+            },
+            aliases={
+                '../../theme.config$': 'less/{{ cookiecutter.package_name }}/theme.config',
+            },
+        ),
     }
 )
