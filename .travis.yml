@@ -20,6 +20,9 @@ notifications:
 
 language: python
 
+node_js:
+  - 10
+
 matrix:
   fast_finish: true
 
