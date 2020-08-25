@@ -17,6 +17,9 @@ COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
 
 RUN pip install . && \
     invenio collect -v  && \
+    # Dirty solution to create templates folder (Needed)
+    mkdir /opt/invenio/var/instance/assets && \
+    mkdir /opt/invenio/var/instance/assets/templates && \
     invenio webpack create && \
     # --unsafe needed because we are running as root
     invenio webpack install --unsafe && \
