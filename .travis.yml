@@ -48,13 +48,16 @@ python:
   - "3.6"
 
 before_install:
+  # Upgrade Travis `numpy` version: default is vulnerable and pipenv check will fail otherwise
+  - pip uninstall numpy -y
+  - pip install --ignore-installed "numpy>=1.18"
   # Stop the services running by default on travis
   - "sudo service mysql stop"
   - "sudo service postgresql stop"
   # Chrome webdriver for Selenium
   - "PATH=$PATH:$HOME/webdrivers"
   - "if [ ${E2E} == 'yes' ] && [ ! -f $HOME/webdrivers/chromedriver ]; then wget https://chromedriver.storage.googleapis.com/2.31/chromedriver_linux64.zip -P $HOME/webdrivers; unzip -d $HOME/webdrivers $HOME/webdrivers/chromedriver_linux64.zip; fi"
-  - "nvm install 6; nvm use 6"
+  - "nvm install 14.0.0; nvm use 14.0.0"
   - "travis_retry pip install --upgrade pip setuptools py pipenv"
   - "travis_retry pip install cookiecutter twine wheel coveralls sphinx"
 

@@ -10,7 +10,8 @@ search_app = WebpackThemeBundle(
     themes={
         'semantic-ui': dict(
             entry={
-                '{{ cookiecutter.project_shortname }}-search-app': './js/{{ cookiecutter.package_name }}_records/search_app_customizations.js',
+                '{{ cookiecutter.project_shortname }}-search-app':
+                './js/{{ cookiecutter.package_name }}_records/search_app_customizations.js',
             },
             dependencies={
                 "react": "^16.9.0",
