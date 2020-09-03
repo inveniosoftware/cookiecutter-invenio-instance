@@ -8,5 +8,5 @@
 # Invenio usually needs.
 
 FROM inveniosoftware/centos7-python:3.6
-COPY Pipfile Pipfile.lock ./
+COPY ./ .
 RUN pipenv install --deploy --system
