@@ -30,6 +30,9 @@ env:
     - E2E_OUTPUT=base64
     # Enable end-to-end tests
     - E2E=no
+    # Force pipenv to create a new virtualenv to bypass travis virtualenv.
+    - PIPENV_IGNORE_VIRTUALENVS=1
+    - PIPENV_PYUP_API_KEY=""
   matrix:
     - REQUIREMENTS=prod E2E=yes
     - REQUIREMENTS=qa

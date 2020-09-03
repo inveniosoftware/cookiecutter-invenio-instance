@@ -28,6 +28,7 @@ PROJECT_NAME="my-site"
 
 cookiecutter --no-input -o "$WORKDIR" . \
     project_name=${PROJECT_NAME} \
+    python_version="3.6" \
     database=${COOKIECUTTER_DATABASE:-postgresql} \
     elasticsearch=${COOKIECUTTER_ELASTICSEARCH:-7}
 

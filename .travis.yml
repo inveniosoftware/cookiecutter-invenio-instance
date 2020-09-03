@@ -49,6 +49,9 @@ python:
   - "3.6"
 
 before_install:
+  # Upgrade Travis `numpy` version: default is vulnerable and pipenv check will fail otherwise
+  - pip uninstall numpy -y
+  - pip install --ignore-installed "numpy>=1.18"
   # Stop the services running by default on travis
   - "sudo service mysql stop"
   - "sudo service postgresql stop"
