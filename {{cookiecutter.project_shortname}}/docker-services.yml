@@ -26,7 +26,7 @@ services:
   lb:
     build: ./docker/haproxy/
     image: {{cookiecutter.project_shortname}}-lb
-    restart: "always"
+    restart: "unless-stopped"
     ports:
       - "80:80"
       - "443:443"
@@ -34,21 +34,21 @@ services:
   frontend:
     build: ./docker/nginx/
     image: {{cookiecutter.project_shortname}}-frontend
-    restart: "always"
+    restart: "unless-stopped"
     ports:
       - "80"
       - "443"
   cache:
     image: redis
-    restart: "always"
+    restart: "unless-stopped"
     read_only: true
     ports:
       - "6379:6379"
   {%- if cookiecutter.database != 'sqlite'%}
   db:
     {%- if cookiecutter.database == 'postgresql'%}
-    image: postgres:9.6
-    restart: "always"
+    image: postgres:12
+    restart: "unless-stopped"
     environment:
       - "POSTGRES_USER={{cookiecutter.project_shortname}}"
       - "POSTGRES_PASSWORD={{cookiecutter.project_shortname}}"
@@ -57,7 +57,7 @@ services:
       - "5432:5432"
     {%- elif cookiecutter.database == 'mysql'%}
     image: mysql
-    restart: "always"
+    restart: "unless-stopped"
     environment:
       - "MYSQL_ROOT_PASSWORD={{cookiecutter.project_shortname}}"
       - "MYSQL_DATABASE={{cookiecutter.project_shortname}}"
@@ -69,17 +69,17 @@ services:
   {%- endif %}
   mq:
     image: rabbitmq:3-management
-    restart: "always"
+    restart: "unless-stopped"
     ports:
       - "15672:15672"
       - "5672:5672"
   es:
     {%- if cookiecutter.elasticsearch == '7' %}
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.2.0
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.9.3
     {%- elif cookiecutter.elasticsearch == '6' %}
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.0
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.9
     {%- endif %}
-    restart: "always"
+    restart: "unless-stopped"
     environment:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
@@ -94,9 +94,9 @@ services:
       - "9300:9300"
   kibana:
     {%- if cookiecutter.elasticsearch == '7'%}
-    image: docker.elastic.co/kibana/kibana-oss:7.2.0
+    image: docker.elastic.co/kibana/kibana-oss:7.9.3
     {%- elif cookiecutter.elasticsearch == '6' %}
-    image: docker.elastic.co/kibana/kibana-oss:6.6.0
+    image: docker.elastic.co/kibana/kibana-oss:6.8.9
     {%- endif %}
     environment:
       - "ELASTICSEARCH_HOSTS=http://es:9200"
