@@ -1,0 +1,157 @@
+name: CI
+
+on:
+  push:
+    branches: gh-actions
+  pull_request:
+    branches: gh-actions
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 3 * * 6'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason'
+        required: false
+        default: 'Manual trigger'
+
+jobs:
+  Tests:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+          # You can add/remove combinations e.g. dev requirements or postgresql13 by adding
+          # a new item to the following lists.
+          python-version: [3.6, 3.7, 3.8]
+          requirements-level: [min, pypi]
+          db-service: [postgresql9, postgresql11, mysql5, mysql8]
+          es-service: [es6, es7]
+          exclude:
+          # Add combinations to this list that should be excluded from the final
+          # build. Doing this will help keeping the number of jobs down.
+          # E.g. removing 3.8 - min combination will avoid 8 jobs to be submited
+          # [3.8] * [min] * [postgresql9, postgresql11, mysql5, mysql8] * [es6, es7]
+          - python-version: 3.8
+            requirements-level: min
+
+          - python-version: 3.9
+            requirements-level: min
+
+          - db-service: postgresql11
+            python-version: 3.6
+
+          - db-service: mysql8
+            python-version: 3.6
+
+          - search-service: es7
+            python-version: 3.6
+
+          - search-service: es6
+            db-service: postgresql11
+
+          - search-service: es6
+            db-service: mysql8
+
+          - search-service: es7
+            db-service: postgresql9
+
+          - search-service: es7
+            db-service: mysql5
+
+          include:
+          - db-service: postgresql9
+            DB: postgresql
+            POSTGRESQL_VERSION: POSTGRESQL_9_LATEST
+            SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
+            POSTGRESQL_EXTRAS: ",postgresql"
+
+          - db-service: postgresql11
+            DB: postgresql
+            POSTGRESQL_VERSION: POSTGRESQL_11_LATEST
+            SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
+            POSTGRESQL_EXTRAS: ",postgresql"
+
+          - db-service: mysql5
+            DB: mysql
+            MYSQL_VERSION: MYSQL_5_LATEST
+            SQLALCHEMY_DATABASE_URI: "mysql+pymysql://invenio:invenio@localhost:3306/invenio"
+            MYSQL_EXTRAS: ",mysql"
+
+          - db-service: mysql8
+            DB: mysql
+            MYSQL_VERSION: MYSQL_8_LATEST
+            SQLALCHEMY_DATABASE_URI: "mysql+pymysql://invenio:invenio@localhost:3306/invenio"
+            MYSQL_EXTRAS: ",mysql"
+
+          - search-service: es6
+            ES_VERSION: ES_6_LATEST
+            ES_EXTRAS: ",elasticsearch6"
+            COOKIECUTTER_ELASTICSEARCH: 6
+
+          - search-service: es7
+            ES_VERSION: ES_7_LATEST
+            ES_EXTRAS: ",elasticsearch7"
+            COOKIECUTTER_ELASTICSEARCH: 7
+            E2E: yes
+
+          - search-service: es7
+            db-service: mysql5
+            COOKIECUTTER_DATAMODEL: None
+
+          - search-service: es7
+            db-service: mysql8
+            COOKIECUTTER_DATAMODEL: None
+
+    env:
+      # docker-services-cli config
+      SQLALCHEMY_DATABASE_URI: ${{matrix.SQLALCHEMY_DATABASE_URI}}
+      POSTGRESQL_VERSION: ${{matrix.POSTGRESQL_VERSION}}
+      MYSQL_VERSION: ${{matrix.MYSQL_VERSION}}
+      ES_VERSION: ${{matrix.ES_VERSION}}
+      DB: ${{ matrix.DB }}
+      # Cookiecutter configuration
+      COOKIECUTTER_DATABASE: ${{matrix.DB}}
+      COOKIECUTTER_ELASTICSEARCH: ${{matrix.COOKIECUTTER_ELASTICSEARCH}}
+      COOKIECUTTER_DATAMODEL: ${{matrix.COOKIECUTTER_DATAMODEL}}
+      # Python installation config
+      EXTRAS: all${{ matrix.MYSQL_EXTRAS }}${{ matrix.POSTGRESQL_EXTRAS }}${{ matrix.ES_EXTRAS }}
+      # Force pipenv to create a new virtualenv to bypass travis virtualenv.
+      PIPENV_IGNORE_VIRTUALENVS: 1
+      PIPENV_PYUP_API_KEY: ""
+      # E2E tests config
+      # Print screenshots to console output
+      E2E_OUTPUT: base64
+      # Enable end-to-end tests
+      E2E: no
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Generate dependencies
+        run: |
+          python -m pip install --upgrade pip setuptools py wheel requirements-builder
+          requirements-builder -e ${EXTRAS} --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('.${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt') }}
+
+      - name: Install dependencies
+        run: |
+          pip install -r .${{matrix.requirements-level}}-${{ matrix.python-version }}-requirements.txt
+          pip install .[${EXTRAS}]
+          pip freeze
+          docker --version
+          docker-compose --version
+
+      - name: Run tests
+        run: |
+          ./run-tests.sh
