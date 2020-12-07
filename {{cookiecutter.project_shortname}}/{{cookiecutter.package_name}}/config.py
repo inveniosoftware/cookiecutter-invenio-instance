@@ -42,6 +42,8 @@ I18N_LANGUAGES = [
 BASE_TEMPLATE = '{{cookiecutter.package_name}}/page.html'
 #: Cover page base template (used for e.g. login/sign-up).
 COVER_TEMPLATE = 'invenio_theme/page_cover.html'
+#: User Profile page base template (used for e.g. account/settings/profile).
+USERPROFILES_BASE_TEMPLATE = 'cookie/page.html'
 #: Footer base template.
 FOOTER_TEMPLATE = 'invenio_theme/footer.html'
 #: Header base template.
