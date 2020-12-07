@@ -3,8 +3,6 @@
 {%- extends "semantic-ui/invenio_search_ui/search.html" %}
 
 {% block javascript %}
-  <!-- Because loading order of overridables -->
   {{ webpack['{%- endraw -%}{{cookiecutter.project_shortname}}{%- raw -%}-search-app.js'] }}
-  {{ super() }}
-  {% endblock javascript %}
+{% endblock javascript %}
 {%- endraw -%}
