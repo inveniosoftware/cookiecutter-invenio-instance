@@ -25,9 +25,6 @@ pipenv run pip install -e $script_path/..
 
 # Build assets
 pipenv run invenio collect -v
-# Dirty solution to create templates folder (Needed)
-mkdir $(pipenv --venv)/var/instance/assets/
-mkdir $(pipenv --venv)/var/instance/assets/templates
 pipenv run invenio webpack buildall
 
 {% endraw %}
