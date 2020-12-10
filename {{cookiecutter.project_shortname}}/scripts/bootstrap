@@ -10,7 +10,7 @@ pipfile_lock_path="$script_path/../Pipfile.lock"
 if [ ! -f $pipfile_lock_path ]; then
     echo "'Pipfile.lock' not found. Generating via 'pipenv lock --dev'..."
     # TODO: Remove --pre once we no longer depend on prerelease packages
-    pipenv lock --dev --pre
+    pipenv lock --dev
 fi
 
 # Installs all packages specified in Pipfile.lock
