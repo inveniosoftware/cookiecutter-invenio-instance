@@ -4,9 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-Babel = ">=2.4.0"
-Flask-BabelEx = ">=0.9.3"
-invenio = { version = ">=3.4.0a1,<3.5.0", extras = ["base", "auth", "metadata", "files", "{{ cookiecutter.database }}", "elasticsearch{{ cookiecutter.elasticsearch }}" ]}
+invenio = { version = ">=3.4.0rc1,<3.5.0", extras = ["base", "auth", "metadata", "files", "{{ cookiecutter.database }}", "elasticsearch{{ cookiecutter.elasticsearch }}" ]}
 lxml = ">=4.3.0,<5.0.0"
 marshmallow = ">=3.0.0,<4.0.0"
 uwsgi = ">=2.0"
@@ -14,23 +12,8 @@ uwsgi-tools = ">=1.1.1"
 uwsgitop = ">=0.11"
 
 [dev-packages]
-check-manifest = ">=0.35"
-coverage = ">=4.4.1"
-Flask-Debugtoolbar = ">=0.10.1"
-isort = ">=4.3"
-mock = ">=2.0.0"
-pydocstyle = ">=2.0.0"
-pytest = ">=3.3.1, <6.0.0"
-pytest-cov = ">=2.5.1"
-pytest-invenio = ">=1.2.1,<1.3.0"
-pytest-mock = ">=1.6.0"
-pytest-pep8 = ">=1.0.6"
-pytest-random-order = ">=0.5.4"
-pytest-runner = ">=3.0.0,<5"
-Sphinx = ">=1.5.1"
-
-[requires]
-python_version = "3.6"
+pytest-invenio = ">=1.4.0,<1.5.0"
+Sphinx = ">=3.0.0,<4"
 
 [scripts]
 test = "python setup.py test"
