@@ -19,19 +19,23 @@ on:
 jobs:
   Tests:
     runs-on: ubuntu-20.04
+    timeout-minutes: 20
     strategy:
       matrix:
-          # You can add/remove combinations e.g. dev requirements or postgresql13 by adding
+          # You can add/remove combinations e.g. `dev` requirements or `postgresql13` by adding
           # a new item to the following lists.
+          # You can see the complete list of services and versions that are available at:
+          # https://docker-services-cli.readthedocs.io/en/latest/configuration.html
           python-version: [3.6, 3.7, 3.8, 3.9]
           requirements-level: [min, pypi]
           db-service: [postgresql9, postgresql11, mysql5, mysql8]
-          es-service: [es6, es7]
+          search-service: [elasticsearch6, elasticsearch7]
+
           exclude:
           # Add combinations to this list that should be excluded from the final
           # build. Doing this will help keeping the number of jobs down.
           # E.g. removing 3.8 - min combination will avoid 8 jobs to be submited
-          # [3.8] * [min] * [postgresql9, postgresql11, mysql5, mysql8] * [es6, es7]
+          # [3.8] * [min] * [postgresql9, postgresql11, mysql5, mysql8] * [elasticsearch6, elasticsearch7]
           - python-version: 3.8
             requirements-level: min
 
@@ -44,59 +48,47 @@ jobs:
           - db-service: mysql8
             python-version: 3.6
 
-          - search-service: es7
+          - search-service: elasticsearch7
             python-version: 3.6
 
-          - search-service: es6
+          - search-service: elasticsearch6
             db-service: postgresql11
 
-          - search-service: es6
+          - search-service: elasticsearch6
             db-service: mysql8
 
-          - search-service: es7
+          - search-service: elasticsearch7
             db-service: postgresql9
 
-          - search-service: es7
+          - search-service: elasticsearch7
             db-service: mysql5
 
           include:
           - db-service: postgresql9
-            DB: postgresql
-            POSTGRESQL_VERSION: POSTGRESQL_9_LATEST
-            SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
-            EXTRAS: "all,postgresql"
+            DB_EXTRAS: "postgresql"
 
           - db-service: postgresql11
-            DB: postgresql
-            POSTGRESQL_VERSION: POSTGRESQL_11_LATEST
-            SQLALCHEMY_DATABASE_URI: "postgresql+psycopg2://invenio:invenio@localhost:5432/invenio"
-            EXTRAS: "all,postgresql"
+            DB_EXTRAS: "postgresql"
 
           - db-service: mysql5
-            DB: mysql
-            MYSQL_VERSION: MYSQL_5_LATEST
-            SQLALCHEMY_DATABASE_URI: "mysql+pymysql://invenio:invenio@localhost:3306/invenio"
-            EXTRAS: "all,mysql"
+            DB_EXTRAS: "mysql"
 
           - db-service: mysql8
-            DB: mysql
-            MYSQL_VERSION: MYSQL_8_LATEST
-            SQLALCHEMY_DATABASE_URI: "mysql+pymysql://invenio:invenio@localhost:3306/invenio"
-            EXTRAS: "all,mysql"
+            DB_EXTRAS: "mysql"
 
-          - search-service: es6
-            ES_VERSION: ES_6_LATEST
+          - search-service: elasticsearch6
+            SEARCH_EXTRAS: "elasticsearch6"
 
-          - search-service: es7
-            ES_VERSION: ES_7_LATEST
-            EXTRAS: "all,postgresql,elasticsearch7"
+          - search-service: elasticsearch7
+            SEARCH_EXTRAS: "elasticsearch7"
 
     env:
-      SQLALCHEMY_DATABASE_URI: ${{matrix.SQLALCHEMY_DATABASE_URI}}
-      POSTGRESQL_VERSION: ${{matrix.POSTGRESQL_VERSION}}
-      MYSQL_VERSION: ${{matrix.MYSQL_VERSION}}
-      ES_VERSION: ${{matrix.ES_VERSION}}
-      DB: ${{ matrix.DB }}
+      CACHE: ${{ matrix.cache-service }}
+      DB: ${{ matrix.db-service }}
+      MQ: ${{ matrix.mq-service }}
+      SEARCH: ${{ matrix.search-service }}
+      # TODO: Adapt EXTRAS accordingly
+      EXTRAS: all,${{ matrix.DB_EXTRAS }},${{ matrix.SEARCH_EXTRAS }}
 
     steps:
       - name: Checkout
@@ -110,7 +102,7 @@ jobs:
       - name: Generate dependencies
         run: |
           python -m pip install --upgrade pip setuptools py wheel requirements-builder
-          requirements-builder -e ${{ matrix.EXTRAS }} --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
+          requirements-builder -e "$EXTRAS" --level=${{ matrix.requirements-level }} setup.py > .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
 
       - name: Cache pip
         uses: actions/cache@v2
@@ -120,8 +112,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r .${{matrix.requirements-level}}-${{ matrix.python-version }}-requirements.txt
-          pip install .[${{ matrix.EXTRAS }}]
+          pip install -r .${{ matrix.requirements-level }}-${{ matrix.python-version }}-requirements.txt
+          pip install ".[$EXTRAS]"
           pip freeze
           docker --version
           docker-compose --version
@@ -129,4 +121,5 @@ jobs:
       - name: Run tests
         run: |
           ./run-tests.sh
+
 {%- endraw %}
