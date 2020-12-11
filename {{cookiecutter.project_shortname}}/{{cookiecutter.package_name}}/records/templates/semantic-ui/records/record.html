@@ -36,15 +36,15 @@
 {% macro preview(files) %}
   {% set selected_file = files|select_preview_file %}
   {%- if selected_file -%}
-    <div class="panel" id="preview">
-      <div class="panel-heading">
+    <div class="ui accordion panel" id="preview">
+      <div class="active title panel-heading">
         <a class="panel-toggle" data-toggle="collapse" href="#collapsablePreview">
           {{_('Preview')}}
           <span class="pull-right show-on-collapsed"><i class="fa fa-chevron-right"></i></span>
           <span class="pull-right hide-on-collapsed"><i class="fa fa-chevron-down"></i></span>
         </a>
       </div>
-      <div id="collapsablePreview" class="collapse in">
+      <div id="collapsablePreview" class="active content collapse in">
         {{- preview_file('invenio_records_ui.recid_previewer', pid=pid, filename=selected_file.key) }}
       </div>
     </div>
