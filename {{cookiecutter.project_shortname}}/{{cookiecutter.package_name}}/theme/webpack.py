@@ -10,7 +10,6 @@ theme = WebpackThemeBundle(
     themes={
         'semantic-ui': dict(
             entry={
-                '{{ cookiecutter.project_shortname }}-theme': './less/{{ cookiecutter.package_name }}/theme.less',
                 '{{ cookiecutter.project_shortname }}-preview': './js/{{ cookiecutter.package_name }}/previewer.js',
             },
             dependencies={
