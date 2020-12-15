@@ -9,7 +9,6 @@ pipfile_lock_path="$script_path/../Pipfile.lock"
 
 if [ ! -f $pipfile_lock_path ]; then
     echo "'Pipfile.lock' not found. Generating via 'pipenv lock --dev'..."
-    # TODO: Remove --pre once we no longer depend on prerelease packages
     pipenv lock --dev
 fi
 
@@ -18,6 +17,9 @@ pipenv sync --dev
 
 # Install application code and entrypoints from 'setup.py'
 pipenv run pip install -e $script_path/..
+
+# Ensure assets are symlinked by default
+export FLASK_ENV=development
 
 # Build assets
 pipenv run invenio collect -v
