@@ -1,8 +1,6 @@
 {% include 'misc/header.py' %}
 """Tasks for {{ cookiecutter.project_name }}."""
 
-from __future__ import absolute_import, print_function
-
 import sqlalchemy
 from celery import shared_task
 from invenio_db import db
