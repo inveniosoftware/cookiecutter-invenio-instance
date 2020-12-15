@@ -1,8 +1,6 @@
 {% include 'misc/header.py' %}
 """Blueprint definitions."""
 
-from __future__ import absolute_import, print_function
-
 from operator import itemgetter
 from os.path import splitext
 

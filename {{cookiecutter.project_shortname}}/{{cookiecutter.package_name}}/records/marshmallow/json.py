@@ -1,8 +1,6 @@
 {% include 'misc/header.py' %}
 """JSON Schemas."""
 
-from __future__ import absolute_import, print_function
-
 from invenio_jsonschemas import current_jsonschemas
 from invenio_records_rest.schemas import Nested, StrictKeysMixin
 from invenio_records_rest.schemas.fields import DateString, GenFunction, \

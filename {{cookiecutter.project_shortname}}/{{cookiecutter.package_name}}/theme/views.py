@@ -6,8 +6,6 @@ templates and static files located in the folders of the same names next to
 this file.
 """
 
-from __future__ import absolute_import, print_function
-
 from flask import Blueprint
 
 blueprint = Blueprint(

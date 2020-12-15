@@ -8,8 +8,6 @@ json_v1 instance, it uses the MetadataSchemaV1, defining the
 PersistentIdentifier field.
 """
 
-from __future__ import absolute_import, print_function
-
 from invenio_records_rest.loaders.marshmallow import json_patch_loader, \
     marshmallow_loader
 

@@ -1,8 +1,6 @@
 {% include 'misc/header.py' %}
 """Flask extension for {{ cookiecutter.project_name }}."""
 
-from __future__ import absolute_import, print_function
-
 from invenio_files_rest.signals import file_deleted, file_uploaded
 from invenio_indexer.signals import before_record_index
 
