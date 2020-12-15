@@ -1,3 +1,20 @@
 {% include 'misc/header.js' %}
 
-@import "../../theme.less";
+// This is LESS file. It is automatically import because of the @siteFolder
+// defininition in theme.config.
+//
+// Use this file to provide additional CSS rules. For example:
+
+//  footer{
+//     margin-top: 3px;
+//   }
+
+//   html.cover-page{
+//     background-color: @brandColor;
+//   }
+
+//   .content{
+//     .header{
+//         font-size: xx-large !important;
+//       }
+//   }

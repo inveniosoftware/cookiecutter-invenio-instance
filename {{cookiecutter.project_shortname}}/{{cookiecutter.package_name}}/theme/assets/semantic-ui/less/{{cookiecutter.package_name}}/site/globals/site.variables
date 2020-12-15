@@ -1,3 +1,10 @@
 {% include 'misc/header.js' %}
 
-@import "../../variables.less";
+// This is LESS file. It is automatically import because of the @siteFolder
+// defininition in theme.config.
+//
+// Use this file to provide your custom CSS/LESS variables. For example:
+
+// @brandColor      : #793e8e;
+// @signupColor: @green;
+// @searchButtonColor: @orange;
