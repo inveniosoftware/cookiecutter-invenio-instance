@@ -1,6 +1,5 @@
-{%- include 'misc/header.tpl' -%}
-{%- raw -%}
-{% extends config.RECORDS_UI_BASE_TEMPLATE %}
+{% include 'misc/header.tpl' -%}{% raw %}
+{%- extends config.RECORDS_UI_BASE_TEMPLATE %}
 
 {% from 'invenio_previewer/macros.html' import file_list, preview_file %}
 
@@ -36,15 +35,15 @@
 {% macro preview(files) %}
   {% set selected_file = files|select_preview_file %}
   {%- if selected_file -%}
-    <div class="ui accordion panel" id="preview">
-      <div class="active title panel-heading">
+    <div class="panel" id="preview">
+      <div class="panel-heading">
         <a class="panel-toggle" data-toggle="collapse" href="#collapsablePreview">
           {{_('Preview')}}
           <span class="pull-right show-on-collapsed"><i class="fa fa-chevron-right"></i></span>
           <span class="pull-right hide-on-collapsed"><i class="fa fa-chevron-down"></i></span>
         </a>
       </div>
-      <div id="collapsablePreview" class="active content collapse in">
+      <div id="collapsablePreview" class="collapse in">
         {{- preview_file('invenio_records_ui.recid_previewer', pid=pid, filename=selected_file.key) }}
       </div>
     </div>
@@ -52,7 +51,7 @@
 {%- endmacro %}
 
 {%- block page_body %}
-  <div class="ui container">
+  <div class="container">
     <h2>{{record.title}}</h2>
     <div class="panel panel-default">
       <ul class="list-group">
@@ -65,6 +64,6 @@
       {{ file_list(files, pid) }}
     {%- endif %}
   </div>
-  {{ webpack['{%- endraw -%}{{cookiecutter.project_shortname}}{%- raw -%}-preview.js'] }}
+  {{ webpack['{%- endraw %}{{cookiecutter.project_shortname}}{%- raw %}-preview.js'] }}
 {%- endblock %}
-{%- endraw -%}
+{% endraw %}

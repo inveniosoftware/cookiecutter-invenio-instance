@@ -8,6 +8,7 @@ search_app = WebpackThemeBundle(
     'assets',
     default='semantic-ui',
     themes={
+        'bootstrap3': dict(entry={}, dependencies={}, aliases={}),
         'semantic-ui': dict(
             entry={
                 '{{ cookiecutter.project_shortname }}-search-app':
