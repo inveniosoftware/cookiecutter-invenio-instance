@@ -15,8 +15,14 @@ fi
 # Installs all packages specified in Pipfile.lock
 pipenv sync --dev
 
+# TODO: Remove - make sure you use the new pip resolver
+# pipenv run pip install pip --upgrade
+
 # Install application code and entrypoints from 'setup.py'
 pipenv run pip install -e $script_path/..
+
+# TODO: Remove - edit to fit your needs
+# pipenv run pip install -e ~/src/invenio-access/ -e ~/src/invenio-accounts/ -e ~/src/invenio-oauth2server/ -e ~/src/invenio-oauthclient/ -e ~/src/invenio-previewer/ -e ~/src/invenio-records-ui/ -e ~/src/invenio-search-ui/ -e ~/src/invenio-theme/ -e ~/src/invenio-userprofiles/
 
 # Ensure assets are symlinked by default
 export FLASK_ENV=development

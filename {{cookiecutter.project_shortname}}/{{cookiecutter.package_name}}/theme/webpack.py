@@ -8,6 +8,14 @@ theme = WebpackThemeBundle(
     'assets',
     default='semantic-ui',
     themes={
+        'bootstrap3': dict(
+            entry={
+                '{{ cookiecutter.project_shortname }}-theme': './scss/{{ cookiecutter.package_name }}/theme.scss',
+                '{{ cookiecutter.project_shortname }}-preview': './js/{{ cookiecutter.package_name }}/previewer.js',
+            },
+            dependencies={},
+            aliases={},
+        ),
         'semantic-ui': dict(
             entry={
                 '{{ cookiecutter.project_shortname }}-preview': './js/{{ cookiecutter.package_name }}/previewer.js',
