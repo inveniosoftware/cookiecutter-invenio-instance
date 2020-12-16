@@ -23,5 +23,5 @@ export FLASK_ENV=development
 
 # Build assets
 pipenv run invenio collect -v
-pipenv run invenio webpack buildall
+pipenv run invenio webpack clean buildall
 {% endraw %}
