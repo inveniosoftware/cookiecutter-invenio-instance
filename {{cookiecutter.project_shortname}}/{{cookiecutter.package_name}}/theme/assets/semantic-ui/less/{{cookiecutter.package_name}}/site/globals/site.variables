@@ -1,9 +1,9 @@
 {% include 'misc/header.js' %}
 
-// This is LESS file. It is automatically import because of the @siteFolder
-// defininition in theme.config.
+// This is a LESS file. It is automatically imported because of the @siteFolder
+// definition in theme.config.
 //
-// Use this file to provide your custom CSS/LESS variables. For example:
+// Use this file to provide your custom LESS variables. For example:
 
 // @brandColor      : #793e8e;
 // @signupColor: @green;
