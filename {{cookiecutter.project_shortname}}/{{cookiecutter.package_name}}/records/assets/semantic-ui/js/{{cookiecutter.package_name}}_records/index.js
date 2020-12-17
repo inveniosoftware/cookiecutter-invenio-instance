@@ -1,4 +1,4 @@
-import { createSearchAppInit } from "@js/invenio_search_ui";
+{% raw -%}import { createSearchAppInit } from "@js/invenio_search_ui";
 import { {% endraw -%}{{cookiecutter.datamodel_extension_class}}{%- raw %}SearchBarElement } from "./search_app_customizations";
 
 const initSearchApp = createSearchAppInit({
@@ -7,3 +7,4 @@ const initSearchApp = createSearchAppInit({
   "SearchBar.element": {% endraw -%}{{cookiecutter.datamodel_extension_class}}{%- raw %}SearchBarElement,
   "SearchApp.searchbarContainer": () => null,
 });
+{%- endraw %}
