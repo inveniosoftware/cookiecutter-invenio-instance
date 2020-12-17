@@ -12,7 +12,7 @@ uwsgi-tools = ">=1.1.1"
 uwsgitop = ">=0.11"
 
 [dev-packages]
-pytest-invenio = ">=1.4.0,<1.5.0"
+pytest-invenio = ">=1.4.1,<1.5.0"
 Sphinx = ">=3.0.0,<4"
 
 [scripts]
