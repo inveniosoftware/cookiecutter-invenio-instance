@@ -70,6 +70,7 @@ To generate correct files, please provide the following input to Cookiecutter:
                               necessarily the same as the copyright holder.
 `author_email`                E-Mail address of the primary author.
 `year`                        Current year.
+`python_version`              Python version to be used by the instance.
 `copyright_holder`            Name of the person or organization who acts as the
                               copyright holder of this project.
 `transifex_project`           Name of the project on transifex translation platform.
