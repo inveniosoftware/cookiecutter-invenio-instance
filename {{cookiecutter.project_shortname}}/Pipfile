@@ -11,6 +11,9 @@ uwsgi = ">=2.0"
 uwsgi-tools = ">=1.1.1"
 uwsgitop = ">=0.11"
 
+[requires]
+python_version = "{{ cookiecutter.python_version.split()[0] }}"
+
 [dev-packages]
 pytest-invenio = ">=1.4.1,<1.5.0"
 Sphinx = ">=3.0.0,<4"
