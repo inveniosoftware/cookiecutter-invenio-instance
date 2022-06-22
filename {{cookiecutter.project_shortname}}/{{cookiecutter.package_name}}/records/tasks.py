@@ -28,8 +28,8 @@ def update_record_files_by_bucket(bucket_id):
             pass
 
 
-def update_record_files_async(object_version):
+def update_record_files_async(object_version, obj):
     """Get the bucket id and spawn a task to update record metadata."""
     # convert to string to be able to serialize it when sending to the task
-    str_uuid = str(object_version.bucket_id)
+    str_uuid = str(obj.bucket_id)
     return update_record_files_by_bucket.delay(bucket_id=str_uuid)
