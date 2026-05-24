@@ -1,3 +1,4 @@
+{% include 'misc/header.py' %}
 """E2E test of the front page."""
 
 from flask import url_for

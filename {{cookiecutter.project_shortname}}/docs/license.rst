@@ -1,3 +1,5 @@
+{% include 'misc/header.rst' %}
+
 License
 =======
 

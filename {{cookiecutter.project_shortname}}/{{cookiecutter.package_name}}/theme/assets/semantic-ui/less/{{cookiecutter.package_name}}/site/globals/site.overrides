@@ -1,5 +1,4 @@
 {% include 'misc/header.js' %}
-
 // This is a LESS file. It is automatically imported because of the @siteFolder
 // definition in theme.config.
 //

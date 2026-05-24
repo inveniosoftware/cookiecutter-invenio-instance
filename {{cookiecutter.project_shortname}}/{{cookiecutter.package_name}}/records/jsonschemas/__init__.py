@@ -1,5 +1,4 @@
 {% include 'misc/header.py' %}
-
 """JSON schemas.
 
 JSON schemas are used to define the structure of the record data of your

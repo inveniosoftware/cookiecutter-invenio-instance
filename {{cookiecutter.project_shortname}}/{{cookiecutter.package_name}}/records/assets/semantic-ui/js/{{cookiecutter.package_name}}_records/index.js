@@ -1,3 +1,4 @@
+{%- include 'misc/header.js' %}{%- raw %}
 {% raw -%}import { createSearchAppInit } from "@js/invenio_search_ui";
 import { {% endraw -%}{{cookiecutter.datamodel_extension_class}}{%- raw %}SearchBarElement } from "./search_app_customizations";
 

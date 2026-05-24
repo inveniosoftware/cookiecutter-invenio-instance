@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# SPDX-FileCopyrightText: 2018 CERN.
+# SPDX-License-Identifier: MIT
 
 echo "-------------------------------------------------------------------------------"
 echo

@@ -1,3 +1,4 @@
+{% include 'misc/header.js' %}
 import $ from "jquery";
 
 $("#files")
